@@ -3,6 +3,7 @@
 
 #include "main.h"
 #include "sprite.h"
+#include "level.h"
 
 class Player : public Sprite {
     public:
@@ -10,10 +11,11 @@ class Player : public Sprite {
         ~Player();
         u16 lifesRemaining() const { return s_lifes; };
         void move();
+		void setLevel(Level* level) { s_level = level; };
     
     private:
         u16 s_lifes;
-        u16 s_player_data[360];
+		Level* s_level;
 };
 
 #endif // PLAYER_H

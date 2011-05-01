@@ -30,7 +30,7 @@ int main(void) {
     oamInit(&oamMain, SpriteMapping_1D_128, false);
     
 	// initialize the background
-	int bg = bgInit(0, BgType_Text8bpp, BgSize_T_256x256, 0,1);
+	int bg = bgInit(0, BgType_Text8bpp, BgSize_T_512x512, 0, 1);
     
     Player* player = new Player;
 	Level* level1 = new Level(&map1, bg);

@@ -16,7 +16,7 @@ Level::Level(Map* map, int bg) {
 	
 	int i, j;
 	for(j = 0 ; j < 24 ; j++)
-		for(i = 0 ; i < 32 ; i++)
+		for(i = 0 ; i < 34; i++)
 			mapPtr[i + j * 32] = s_map->map[i + j * s_length];
 	
 }
@@ -32,7 +32,7 @@ void Level::scroll(s16 x, s16 y) {
 	
 	int i, j;
 	for(j = 0 ; j < 24 ; j++)
-		for(i = 0 ; i < 32 ; i++)
+		for(i = 0 ; i < 34 ; i++)
 			mapPtr[i + j * 32] = s_map->map[(i + s_x / 8) + (j + s_y / 8) * s_length];
 	
 	bgSetScroll(s_bg, s_x % 8, s_y % 8);

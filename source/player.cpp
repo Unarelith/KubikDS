@@ -51,4 +51,10 @@ void Player::move() {
 	}
 	
 	s_y += s_vy;
+	
+	// Level scrolling
+	if((s_x > 100) && (s_level->x() < s_level->length() * 8 - 256)) {
+		s_x = 100;
+		s_level->scroll(1, 0);
+	}
 }

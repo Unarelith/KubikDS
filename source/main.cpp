@@ -30,7 +30,8 @@ int main(void) {
     oamInit(&oamMain, SpriteMapping_1D_128, false);
     
 	// initialize the background
-    u16* bgGfx = bgGetGfxPtr(bgInit(2, BgType_Bmp16, BgSize_B16_256x256, 0, 0));
+	int bg3 = bgInit(3, BgType_Bmp16, BgSize_B16_256x256, 0, 0);
+    u16* bgGfx = bgGetGfxPtr(bg3);
     
     Player* player = new Player;
 	Level* level1 = new Level(&map1, bgGfx);
@@ -47,7 +48,6 @@ int main(void) {
         player->move();
         player->draw();
 		
-		bgUpdate();
 		oamUpdate(&oamMain);
 	}
 }

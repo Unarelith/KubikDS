@@ -5,5 +5,8 @@
 #include <time.h>
 #include <stdio.h>
 #include <math.h>
+#include <string>
+
+using namespace std;
 
 #endif // MAIN_H

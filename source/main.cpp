@@ -35,7 +35,7 @@ int main(void) {
     Player* player = new Player;
 	Level* level1 = new Level(32, map1_1, ARGB16(1,0,31,31), bgGfx);
 	
-	player->setLevel(level1);
+	player->setLevel(level1, 176);
 	
 	while(1) {
 		swiWaitForVBlank();

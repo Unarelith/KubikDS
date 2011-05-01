@@ -10,7 +10,7 @@ class Level {
 		void draw();
 		void drawKube(s16 x, s16 y, u16 color);
         u8* map() const { return s_map; };
-		bool isKubeAt(u8 pos, s16 x, s16 y); // pos = 0:Left, 1:Right, 2:Up, 3:Down
+		bool isKubeAt(s16 x, s16 y);
 	
 	private:
 		u16 s_length;

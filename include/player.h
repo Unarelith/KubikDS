@@ -5,6 +5,9 @@
 #include "sprite.h"
 #include "level.h"
 
+#define GRAVITY 1
+#define VY_MAX 8
+
 class Player : public Sprite {
     public:
         Player();
@@ -16,10 +19,9 @@ class Player : public Sprite {
     private:
         u16 s_lifes;
 		Level* s_level;
-		string s_jumpstate;
-		int s_jumpspeed;
-		int s_gravity;
-		int s_maxgravity;
+		s32 s_vx;
+		s32 s_vy;
+		bool s_jumping;
 };
 
 #endif // PLAYER_H

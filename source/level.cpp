@@ -33,26 +33,9 @@ void Level::draw() {
 	}
 }
 
-bool Level::isKubeAt(u8 pos, s16 x, s16 y) { // pos = 0:Left, 1:Right, 2:Up, 3:Down
-	if(pos == 0) {
-		if((s_map[x / 8 + y / 8 * 32] == 1) || (s_map[(x - 1) / 8 + (y + 7) / 8 * 32] == 1)){
-			return true;
-		}
-	}
-	else if(pos == 1) {
-		if((s_map[(x + 8) / 8 + y / 8 * 32] == 1) || (s_map[(x + 8) / 8 + (y + 7) / 8 * 32] == 1)) {
-			return true;
-		}
-	}
-	else if(pos == 2) {
-		if((s_map[x / 8 + y / 8 * 32] == 1) || (s_map[(x + 7) / 8 + (y - 1) / 8 * 32] == 1)) {
-			return true;
-		}
-	}
-	else if(pos == 3) {
-		if((s_map[x / 8 + (y + 8) / 8 * 32] == 1) || (s_map[(x + 7) / 8 + (y + 8) / 8 * 32] == 1)) {
-			return true;
-		}
+bool Level::isKubeAt(s16 x, s16 y) {
+	if(s_map[x / 8 + y / 8 * 32] == 1) {
+		return true;
 	}
 	
 	return false;

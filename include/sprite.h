@@ -5,7 +5,7 @@
 
 class Sprite {
     public:
-        Sprite(int i, SpriteSize size, SpriteColorFormat format, s16 x, s16 y, u8 speed);
+        Sprite(int i, SpriteSize size, SpriteColorFormat format, s16 x, s16 y);
 		~Sprite();
         u16* gfx() const { return s_gfx; };
         s16 x() const { return s_x; };
@@ -18,7 +18,6 @@ class Sprite {
         SpriteColorFormat s_format;
         s16 s_x;
         s16 s_y;
-        u8 s_speed;
         int s_i;
 };
 

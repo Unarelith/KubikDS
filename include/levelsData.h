@@ -4,7 +4,7 @@
 #include "main.h"
 
 typedef struct {
-	u8* map;
+	u16* map;
 	u16 length;
 	u16 height;
 	u16 color;

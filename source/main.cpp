@@ -33,7 +33,7 @@ int main(void) {
     u16* bgGfx = bgGetGfxPtr(bgInit(2, BgType_Bmp16, BgSize_B16_256x256, 0, 0));
     
     Player* player = new Player;
-	Level* level1 = new Level(32, map1_1, ARGB16(1,0,31,31), bgGfx);
+	Level* level1 = new Level(&map1, bgGfx);
 	
 	player->setLevel(level1);
 	
@@ -47,6 +47,7 @@ int main(void) {
         player->move();
         player->draw();
 		
+		bgUpdate();
 		oamUpdate(&oamMain);
 	}
 }

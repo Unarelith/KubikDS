@@ -3,6 +3,13 @@
 
 #include "main.h"
 
-extern u8 map1_1[32 * 24];
+typedef struct {
+	u8* map;
+	u16 length;
+	u16 height;
+	u16 color;
+} Map;
+
+extern Map map1;
 
 #endif // LEVELSDATA_H

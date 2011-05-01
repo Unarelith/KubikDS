@@ -11,7 +11,7 @@ class Player : public Sprite {
         ~Player();
         u16 lifesRemaining() const { return s_lifes; };
         void move();
-		void setLevel(Level* level, u8 gravity) { s_level = level; s_gravity = gravity; };
+		void setLevel(Level* level) { s_level = level; };
     
     private:
         u16 s_lifes;
@@ -19,6 +19,7 @@ class Player : public Sprite {
 		string s_jumpstate;
 		int s_jumpspeed;
 		int s_gravity;
+		int s_maxgravity;
 };
 
 #endif // PLAYER_H

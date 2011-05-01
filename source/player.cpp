@@ -4,6 +4,8 @@ Player::Player() : Sprite(0, SpriteSize_8x8, SpriteColorFormat_Bmp, 5, 176, 1) {
     dmaFillHalfWords(ARGB16(1,31,31,31), s_gfx, 8*16*16);
 	s_jumpstate = "ground";
 	s_jumpspeed = 10;
+	s_gravity = s_y;
+	s_maxgravity = s_gravity;
 }
 
 Player::~Player() {
@@ -27,6 +29,18 @@ void Player::move() {
 		}
     }
     
+    else if(keysHeld() & KEY_UP) {
+		if(!s_level->isKubeAt(2, s_x, s_y)) {
+			s_y -= s_speed;
+		}
+    }
+    
+    else if(keysHeld() & KEY_DOWN) {
+		if(!s_level->isKubeAt(3, s_x, s_y)) {
+			s_y += s_speed;
+		}
+    }
+    
     if((keysHeld() & KEY_A) && (s_jumpstate == "ground"))
 		s_jumpstate = "jumping";
 	
@@ -38,10 +52,10 @@ void Player::move() {
 	if(s_gravity < 0)
 		s_jumpstate = "falling";
 	
-	if((s_gravity < 176) && (s_jumpstate == "falling"))
+	if((s_gravity < s_maxgravity) && (s_jumpstate == "falling"))
 		s_gravity += s_jumpspeed + 5;
 	
-	if(s_gravity == 176) {
+	if(s_gravity == s_maxgravity) {
 		s_jumpspeed = 10;
 		s_jumpstate = "ground";
 	}

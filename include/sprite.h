@@ -10,6 +10,7 @@ class Sprite {
         u16* gfx() const { return s_gfx; };
         s16 x() const { return s_x; };
         s16 y() const { return s_y; };
+		void setXY(s16 x, s16 y) { s_x += x; s_y += y; };
         void draw();
     
     protected:

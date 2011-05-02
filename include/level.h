@@ -3,8 +3,11 @@
 
 #include "main.h"
 #include "levelsData.h"
+#include "enemy.h"
 
 #include "tiles.h"
+
+class Enemy;
 
 class Level {
 	public:
@@ -17,6 +20,8 @@ class Level {
 		void scroll(s16 x, s16 y);
 		u16 length() const { return s_length; };
 		u16 height() const { return s_height; };
+		void setEnemies(Enemy** enemies) { s_enemies = enemies; };
+		Enemy** enemies() const { return s_enemies; };
 	
 	private:
 		u16 s_length;
@@ -26,6 +31,7 @@ class Level {
 		Map* s_map;
 		u16 s_color;
 		int s_bg;
+		Enemy** s_enemies;
 };
 
 #endif // LEVEL_H

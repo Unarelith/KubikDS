@@ -1,7 +1,7 @@
 #include "player.h"
 
 Player::Player() : Sprite(0, SpriteSize_8x8, SpriteColorFormat_Bmp, 10, 176) {
-    dmaFillHalfWords(ARGB16(1,31,31,31), s_gfx, 8*16*16);
+    dmaFillHalfWords(ARGB16(1,31,31,31), s_gfx, 8*8*2);
 	s_vx = 0;
 	s_vy = 0;
 	s_jumping = false;
@@ -27,6 +27,7 @@ void Player::move() {
 	s_vx = 0;
     
 	// Jump
+	// TODO: Improve jump (Too fast)
     if((keysDown() & KEY_A) && (s_vy == 0) && (!s_jumping)) {
 		s_vy = -9;
 		s_jumping = true;

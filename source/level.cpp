@@ -15,9 +15,12 @@ Level::Level(Map* map, int bg) {
 	dmaCopy(tilesPal, BG_PALETTE, tilesPalLen);
 	
 	int i, j;
-	for(j = 0 ; j < 24 ; j++)
-		for(i = 0 ; i < 34; i++)
+	for(j = 0 ; j < 32 ; j++) {
+		for(i = 0 ; i < 32 ; i++) {
 			mapPtr[i + j * 32] = s_map->map[i + j * s_length];
+			mapPtr[i + 32 + j * 32 + 32 * 32] = s_map->map[(i + 32) + j * s_length];
+		}
+	}
 	
 }
 
@@ -30,10 +33,17 @@ void Level::scroll(s16 x, s16 y) {
 	
 	u16* mapPtr = bgGetMapPtr(s_bg);
 	
+	/* TODO: 
+		<ludo6431> bon ensuite, tu peux optimiser un peu tout ça, au lieu de tout recopier à chaque déplacement, tu peux scroller un peu tant que tu n'arrives pas à la fin des 512 pixels
+		<ludo6431> et à ce moment là tu recharges la suite de ta map et tu reviens au début
+	*/
 	int i, j;
-	for(j = 0 ; j < 24 ; j++)
-		for(i = 0 ; i < 34 ; i++)
+	for(j = 0 ; j < 32 ; j++) {
+		for(i = 0 ; i < 32 ; i++) {
 			mapPtr[i + j * 32] = s_map->map[(i + s_x / 8) + (j + s_y / 8) * s_length];
+			mapPtr[i + j * 32 + 32 * 32] = s_map->map[(i + 32 + s_x / 8) + (j + s_y / 8) * s_length];
+		}
+	}
 	
 	bgSetScroll(s_bg, s_x % 8, s_y % 8);
 }

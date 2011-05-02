@@ -12,6 +12,7 @@ class Enemy : public Sprite {
 		Enemy(int i, s16 x, s16 y);
 		~Enemy();
 		void move();
+		void draw();
 		void setLevel(Level* level) { s_level = level; };
 		s32 vx() const { return s_vx; };
 	

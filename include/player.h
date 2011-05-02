@@ -8,6 +8,8 @@
 #define GRAVITY 1
 #define VY_MAX 8
 
+class Level;
+
 class Player : public Sprite {
     public:
         Player();

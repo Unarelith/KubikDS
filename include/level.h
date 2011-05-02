@@ -4,10 +4,12 @@
 #include "main.h"
 #include "levelsData.h"
 #include "enemy.h"
+#include "player.h"
 
 #include "tiles.h"
 
 class Enemy;
+class Player;
 
 class Level {
 	public:
@@ -32,6 +34,7 @@ class Level {
 		u16 s_color;
 		int s_bg;
 		Enemy** s_enemies;
+		Player* s_player;
 };
 
 #endif // LEVEL_H

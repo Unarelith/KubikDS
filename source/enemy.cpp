@@ -17,3 +17,13 @@ void Enemy::move() {
 	s_lx += s_vx;
 	s_x = s_lx - s_level->x();
 }
+
+void Enemy::draw() {
+	if((s_x >= 0) && (s_x <= 256 + s_level->x() + 8) && (s_y >= 0) && (s_y <= 192 + s_level->y() + 8)) {
+		oamSet(&oamMain, s_i, s_x, s_y, 0,
+			   15, s_size, s_format, s_gfx, -1,
+			   false, false, false, false, false);
+	} else {
+		oamClearSprite(&oamMain, s_i);
+	}
+}

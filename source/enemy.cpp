@@ -19,7 +19,11 @@ void Enemy::move() {
 }
 
 void Enemy::draw() {
+<<<<<<< HEAD
 	if((s_x >= 0) && (s_x <= 256 + s_level->x() + 7) && (s_y >= 0) && (s_y <= 192 + s_level->y() + 7)) {
+=======
+	if((s_x >= 0) && (s_x <= 256 + s_level->x() + 8) && (s_y >= 0) && (s_y <= 192 + s_level->y() + 8)) {
+>>>>>>> 5e6f53e7fa1f555dcf36e58d4dcbadbfdab08068
 		oamSet(&oamMain, s_i, s_x, s_y, 0,
 			   15, s_size, s_format, s_gfx, -1,
 			   false, false, false, false, false);

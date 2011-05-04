@@ -9,7 +9,7 @@ class Level;
 
 class Enemy : public Sprite {
 	public:
-		Enemy(int i, s16 x, s16 y);
+		Enemy(int i, s16 x, s16 y, s32 vx, s32 vy);
 		~Enemy();
 		void move();
 		void draw();

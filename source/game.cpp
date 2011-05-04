@@ -1,6 +1,6 @@
 #include "game.h"
 
-Game::Game(int bg, Player* player, Enemy* enemy1, Level* level1) {
+Game::Game(int bg, Player* player, Level* level1) {
 	s_bg = bg;
 	
     /*s_player = new Player;
@@ -19,8 +19,8 @@ Game::Game(int bg, Player* player, Enemy* enemy1, Level* level1) {
 	s_level1->setGame(this);*/
 	
 	s_player = player;
-	s_enemy1 = enemy1;
 	s_level1 = level1;
+	s_enemies = s_level1->enemies();
 }
 
 Game::~Game() {
@@ -40,6 +40,9 @@ void Game::update() {
     s_player->move();
     s_player->draw();
 	
-	s_enemy1->move();
-	s_enemy1->draw();
+	int i;
+	for(i = 0 ; i < s_level1->nbEnemies() ; i++) {
+		s_enemies[i]->move();
+		s_enemies[i]->draw();
+	}
 }

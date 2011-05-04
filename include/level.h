@@ -32,6 +32,7 @@ class Level {
 		void setGame(Game* game) { s_game = game; };
 		Game* game() const { return s_game; };
 		int id() const { return s_id; };
+		int nbEnemies() const { return s_nbEnemies; };
 	
 	private:
 		u16 s_length;

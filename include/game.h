@@ -10,7 +10,7 @@ class Level;
 
 class Game {
 	public:
-		Game(int bg, Player* player, Enemy* enemy1, Level* level1);
+		Game(int bg, Player* player, Level* level1);
 		~Game();
 		
 		void displayHUD();
@@ -18,14 +18,14 @@ class Game {
 		
 		int frame() const { return s_frame; };
 		Player* player() const { return s_player; };
-		Enemy* enemy1() const { return s_enemy1; };
+		Enemy** enemies() const { return s_enemies; };
 		Level* level1() const { return s_level1; };
 	
 	private:
 		int s_frame;
 		int s_bg;
 		Player* s_player;
-		Enemy* s_enemy1;
+		Enemy** s_enemies;
 		Level* s_level1;
 };
 

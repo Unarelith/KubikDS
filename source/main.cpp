@@ -35,19 +35,22 @@ int main(void) {
 	int bg = bgInit(0, BgType_Text8bpp, BgSize_T_512x512, 0, 1);
 	
     Player* player = new Player;
-	Enemy* enemy1 = new Enemy(1, 216, 176);
+	Enemy* enemy1 = new Enemy(1, 216, 176, 1, 0);
+	Enemy* enemy2 = new Enemy(2, 128, 64, 0, 1);
 	Level* level1 = new Level(&map1, bg, 1);
 	
 	player->setLevel(level1);
 	enemy1->setLevel(level1);
+	enemy2->setLevel(level1);
 	
 	Enemy* enemies[] = {
-		enemy1
+		enemy1,
+		enemy2
 	};
 	
-	level1->setEnemies(enemies, 1);
+	level1->setEnemies(enemies, 2);
 	
-	Game* game = new Game(bg, player, enemy1, level1);
+	Game* game = new Game(bg, player, level1);
 	
 	level1->setGame(game);
 	

@@ -5,10 +5,16 @@ Player::Player() : Sprite(0, SpriteSize_8x8, SpriteColorFormat_Bmp, 10, 176) {
 	s_vx = 0;
 	s_vy = 0;
 	s_jumping = false;
+	s_stop = false;
+	s_hit = false;
+	s_lifes = 3;
 }
 
 Player::~Player() {
 }
+
+bool a = false;
+int frame = 0;
 
 void Player::move() {
 	// Move
@@ -19,9 +25,12 @@ void Player::move() {
 		s_vx = 1;
     }
     
-	if((s_level->isKubeAt(s_x + s_vx, s_y)) || (s_level->isKubeAt(s_x + 7 + s_vx, s_y)) || (s_level->isKubeAt(s_x + s_vx, s_y + 7)) || (s_level->isKubeAt(s_x + 7 + s_vx, s_y + 7)))
-		s_vx = 0;
+	s_level->testCollisionsPE();
     
+	if((s_level->isKubeAt(s_x + s_vx, s_y)) || (s_level->isKubeAt(s_x + 7 + s_vx, s_y)) || (s_level->isKubeAt(s_x + s_vx, s_y + 7)) || (s_level->isKubeAt(s_x + 7 + s_vx, s_y + 7))) {
+		s_vx = 0;
+	}
+	
     s_x += s_vx;
     
 	s_vx = 0;
@@ -62,5 +71,36 @@ void Player::move() {
 	if((s_x < 124) && (s_level->x() > 0)) {
 		s_x = 124;
 		s_level->scroll(-1, 0);
+	}
+	
+	// 
+	if(s_hit) {
+		if(!a) {
+			frame = s_level->game()->frame();
+			a = true;
+		}
+		
+		dmaFillHalfWords(ARGB16(1,rand()%32,rand()%32,rand()%32), s_gfx, 8*8*2);
+		
+		if(s_level->game()->frame() > frame + 120) {
+			
+			a = false;
+			
+			dmaFillHalfWords(ARGB16(1,31,31,31), s_gfx, 8*8*2);
+			
+			s_hit = false;
+		}
+	}
+}
+
+void Player::setLevel(Level* level) {
+	s_level = level;
+	s_level->setPlayer(this);
+}
+
+void Player::removeLife() {
+	if(!s_hit) {
+		s_lifes--;
+		s_hit = true;
 	}
 }

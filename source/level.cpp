@@ -1,6 +1,7 @@
 #include "level.h"
 
-Level::Level(Map* map, int bg) {
+Level::Level(Map* map, int bg, int id) {
+	s_id = id;
 	s_length = map->length;
 	s_height = map->height;
 	s_map = map;
@@ -46,6 +47,24 @@ void Level::scroll(s16 x, s16 y) {
 	}
 	
 	bgSetScroll(s_bg, s_x % 8, s_y % 8);
+}
+
+
+void Level::testCollisionsPE() {
+	int i;
+	for(i = 0 ; i < s_nbEnemies ; i++) {
+		s16 px = s_player->x();
+		s16 py = s_player->y();
+		s16 ex = s_enemies[i]->x();
+		s16 ey = s_enemies[i]->y();
+		
+		s_player->start();
+		s_enemies[i]->start();
+		
+		if((px + 7 >= ex) && (px <= ex + 7) && (py <= ey + 7) && (py + 7 >= ey)) {
+			s_player->removeLife();
+		}
+	}
 }
 
 bool Level::isKubeAt(s16 x, s16 y) {

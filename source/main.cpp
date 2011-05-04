@@ -10,6 +10,7 @@
 #include "level.h"
 #include "levelsData.h"
 #include "enemy.h"
+#include "game.h"
 
 int main(void) {
     PrintConsole bottomScreen;
@@ -32,10 +33,10 @@ int main(void) {
     
 	// initialize the background
 	int bg = bgInit(0, BgType_Text8bpp, BgSize_T_512x512, 0, 1);
-    
+	
     Player* player = new Player;
 	Enemy* enemy1 = new Enemy(1, 216, 176);
-	Level* level1 = new Level(&map1, bg);
+	Level* level1 = new Level(&map1, bg, 1);
 	
 	player->setLevel(level1);
 	enemy1->setLevel(level1);
@@ -44,18 +45,18 @@ int main(void) {
 		enemy1
 	};
 	
-	level1->setEnemies(enemies);
+	level1->setEnemies(enemies, 1);
+	
+	Game* game = new Game(bg, player, enemy1, level1);
+	
+	level1->setGame(game);
 	
 	while(1) {
 		swiWaitForVBlank();
 		
-        scanKeys();
+		scanKeys();
 		
-        player->move();
-        player->draw();
-		
-		enemy1->move();
-		enemy1->draw();
+		game->update();
 		
 		bgUpdate();
 		oamUpdate(&oamMain);

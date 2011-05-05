@@ -12,6 +12,8 @@
 #include "enemy.h"
 #include "game.h"
 
+#include "titleScreen.h"
+
 int main(void) {
     PrintConsole bottomScreen;
     

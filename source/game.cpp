@@ -46,3 +46,14 @@ void Game::update() {
 		s_enemies[i]->draw();
 	}
 }
+
+void Game::setLevel(Level* level) {
+	/*s_player->setLevel(level);
+	
+	int i;
+	for(i = 0 ; i < level->nbEnemies() ; i++) {
+		s_enemies[i]->setLevel(level);
+	}*/
+	
+	s_level1 = level;
+}

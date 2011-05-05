@@ -22,7 +22,6 @@ Level::Level(Map* map, int bg, int id) {
 			mapPtr[i + 32 + j * 32 + 32 * 32] = s_map->map[(i + 32) + j * s_length];
 		}
 	}
-	
 }
 
 Level::~Level() {

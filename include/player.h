@@ -22,6 +22,7 @@ class Player : public Sprite {
 		void start() { s_stop = false; };
 		s32 vx() const { return s_vx; };
 		s32 vy() const { return s_vy; };
+		Level* level() const { return s_level; };
     
     private:
         u16 s_lifes;

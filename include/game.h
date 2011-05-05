@@ -10,6 +10,7 @@ class Level;
 
 class Game {
 	public:
+		Game(int bg);
 		Game(int bg, Player* player, Level* level1);
 		~Game();
 		
@@ -20,8 +21,6 @@ class Game {
 		Player* player() const { return s_player; };
 		Enemy** enemies() const { return s_enemies; };
 		Level* level1() const { return s_level1; };
-		
-		void setLevel(Level* level);
 	
 	private:
 		int s_frame;

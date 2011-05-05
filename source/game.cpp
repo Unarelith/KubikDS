@@ -1,23 +1,40 @@
 #include "game.h"
 
-Game::Game(int bg, Player* player, Level* level1) {
+Game::Game(int bg) {
 	s_bg = bg;
 	
-    /*s_player = new Player;
-	s_enemy1 = new Enemy(1, 224, 176);
-	s_level1 = new Level(&map1, s_bg);
+	Player* player = new Player;
+	Enemy* enemy1 = new Enemy(1, 216, 176, 1, 0);
+	Enemy* enemy2 = new Enemy(2, 128, 64, 0, 1);
+	Level* level1 = new Level(&map1, bg, 1);
 	
-	s_player->setLevel(s_level1);
-	s_enemy1->setLevel(s_level1);
-	
-	int nbEnemies = 1;
+	int nbEnemies = 2;
 	Enemy* enemies[] = {
-		s_enemy1
+		enemy1,
+		enemy2
 	};
 	
-	s_level1->setEnemies(enemies, nbEnemies);
-	s_level1->setGame(this);*/
+	player->setLevel(level1);
 	
+	int i;
+	for(i = 0 ; i < nbEnemies ; i++) {
+		enemies[i]->setLevel(level1);
+	}
+	
+	level1->setEnemies(enemies, nbEnemies);
+	
+	s_player = player;
+	s_level1 = level1;
+	s_enemies = enemies;
+	
+	s_level1->setGame(this);
+	
+	player->draw();
+}
+
+Game::Game(int bg, Player* player, Level* level1) {
+	s_bg = bg;
+
 	s_player = player;
 	s_level1 = level1;
 	s_enemies = s_level1->enemies();
@@ -45,15 +62,4 @@ void Game::update() {
 		s_enemies[i]->move();
 		s_enemies[i]->draw();
 	}
-}
-
-void Game::setLevel(Level* level) {
-	/*s_player->setLevel(level);
-	
-	int i;
-	for(i = 0 ; i < level->nbEnemies() ; i++) {
-		s_enemies[i]->setLevel(level);
-	}*/
-	
-	s_level1 = level;
 }

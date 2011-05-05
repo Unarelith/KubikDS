@@ -13,6 +13,7 @@ Sprite::~Sprite() {
 }
 
 void Sprite::draw() {
+	iprintf("%i, %i\n", s_x, s_y);
     oamSet(&oamMain, s_i, s_x, s_y, 0,
            15, s_size, s_format, s_gfx, -1,
            false, false, false, false, false);

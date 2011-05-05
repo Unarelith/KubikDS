@@ -58,5 +58,14 @@ int main(void) {
 	
 	//level1->setGame(game);
 	
-	game->update();
+	while(1) {
+		swiWaitForVBlank();
+		
+		scanKeys();
+		
+		game->update();
+		
+		bgUpdate();
+		oamUpdate(&oamMain);
+	}
 }

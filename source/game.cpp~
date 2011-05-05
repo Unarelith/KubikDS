@@ -45,25 +45,16 @@ void Game::displayHUD() {
 }
 
 void Game::update() {
-	while(1) {
-		swiWaitForVBlank();
-		
-		scanKeys();
-		
-		s_frame++;
-		
-		displayHUD();
-		
-		s_player->move();
-		s_player->draw();
-		
-		int i;
-		for(i = 0 ; i < s_level1->nbEnemies() ; i++) {
-			s_enemies[i]->move();
-			s_enemies[i]->draw();
-		}
-		
-		bgUpdate();
-		oamUpdate(&oamMain);
+	s_frame++;
+	
+	displayHUD();
+	
+    s_player->move();
+    s_player->draw();
+	
+	int i;
+	for(i = 0 ; i < s_level1->nbEnemies() ; i++) {
+		s_enemies[i]->move();
+		s_enemies[i]->draw();
 	}
 }

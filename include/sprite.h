@@ -7,11 +7,12 @@ class Sprite {
     public:
         Sprite(int i, SpriteSize size, SpriteColorFormat format, s16 x, s16 y);
 		~Sprite();
+		
+        void draw();
+		
         u16* gfx() const { return s_gfx; };
         s16 x() const { return s_x; };
         s16 y() const { return s_y; };
-		void addXY(s16 x, s16 y) { s_x += x; s_y += y; };
-        void draw();
     
     protected:
         u16* s_gfx;

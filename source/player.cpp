@@ -1,4 +1,5 @@
 #include "player.h"
+#include "game.h"
 
 Player::Player(s16 x, s16 y) : Sprite(0, SpriteSize_8x8, SpriteColorFormat_Bmp, x, y) {
     dmaFillHalfWords(ARGB16(1,31,31,31), s_gfx, 8*8*2); // Copy player data into sprite gfx
@@ -14,6 +15,8 @@ Player::Player(s16 x, s16 y) : Sprite(0, SpriteSize_8x8, SpriteColorFormat_Bmp, 
 Player::~Player() {
 }
 
+bool a = false;
+int frame = 0;
 void Player::move() {
 	// Horizontal movement
 	if(keysHeld() & KEY_LEFT) {
@@ -66,5 +69,30 @@ void Player::move() {
 	if((s_x < 124) && (s_level->scrollX() > 0)) {
 		s_x = 124;
 		s_level->scroll(-1, 0);
+	}
+	// 
+	if(s_hit) {
+		if(!a) {
+			frame = Game::frame;
+			a = true;
+		}
+		
+		dmaFillHalfWords(ARGB16(1,rand()%32,rand()%32,rand()%32), s_gfx, 8*8*2);
+		
+		if(Game::frame > frame + 120) {
+			
+			a = false;
+			
+			dmaFillHalfWords(ARGB16(1,31,31,31), s_gfx, 8*8*2);
+			
+			s_hit = false;
+		}
+	}
+}
+
+void Player::removeLife() {
+	if(!s_hit) {
+		s_lifes--;
+		s_hit = true;
 	}
 }

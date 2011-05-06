@@ -1,5 +1,7 @@
 #include "enemy.h"
 
+int Enemy::nbEnemies = 0;
+
 Enemy::Enemy(int i, s16 x, s16 y, s32 vx, s32 vy) : Sprite(i, SpriteSize_8x8, SpriteColorFormat_Bmp, x, y) {
     dmaFillHalfWords(ARGB16(1,31,0,0), s_gfx, 8*8*2); // Copy player data into sprite gfx
 	
@@ -8,6 +10,8 @@ Enemy::Enemy(int i, s16 x, s16 y, s32 vx, s32 vy) : Sprite(i, SpriteSize_8x8, Sp
 	s_ay = y;
 	s_vx = vx;
 	s_vy = vy;
+	
+	nbEnemies++;
 }
 
 Enemy::~Enemy() {

@@ -17,8 +17,14 @@ class Player : public Sprite {
 		// Update functions
 		void move();
 		
+		// Get functions
+		int lifesRemaining() const { return s_lifes; }
+		
 		// Setting functions
 		void setLevel(Level* level) { s_level = level; }
+		
+		// Other functions
+		void removeLife();
 		
     private:
 		// Movement

@@ -17,6 +17,7 @@ class Level {
 		void scroll(s32 x, s32 y);
 		
 		// Get functions
+		int id() const { return s_id; }
 		u16 length() const { return s_map->length; }
 		s32 scrollX() const { return s_scrollX; }
 		s32 scrollY() const { return s_scrollY; }

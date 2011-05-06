@@ -18,6 +18,8 @@ class Enemy : public Sprite {
 		// Setting functions
 		void setLevel(Level* level) { s_level = level; }
 		
+		static int nbEnemies;
+	
 	private:
 		// Absolute position
 		s16 s_ax;

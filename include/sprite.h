@@ -5,22 +5,28 @@
 
 class Sprite {
     public:
+		// Construct & Destruct
         Sprite(int i, SpriteSize size, SpriteColorFormat format, s16 x, s16 y);
 		~Sprite();
 		
+		// Update functions
         void draw();
 		
-        u16* gfx() const { return s_gfx; };
-        s16 x() const { return s_x; };
-        s16 y() const { return s_y; };
+		// Get functions
+        u16* gfx() const { return s_gfx; } // Get sprite gfx pointer
+        s16 x() const { return s_x; } // Get sprite x coordinate
+        s16 y() const { return s_y; } // Get sprite y coordinate
     
     protected:
-        u16* s_gfx;
-        SpriteSize s_size;
-        SpriteColorFormat s_format;
+        int s_i; // Sprite index
+        u16* s_gfx; // Pointer to sprite gfx
+		
+        SpriteSize s_size; // Sprite size
+        SpriteColorFormat s_format; // Sprite format
+		
+		// Sprite coordinates
         s16 s_x;
         s16 s_y;
-        int s_i;
 };
 
 #endif // SPRITE_H

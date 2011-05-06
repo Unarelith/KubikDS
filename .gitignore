@@ -2,4 +2,5 @@ build
 *.elf
 *.nds
 *.kate-swp
+*~
 

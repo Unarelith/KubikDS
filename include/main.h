@@ -1,12 +1,11 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include <nds.h>
-#include <time.h>
-#include <stdio.h>
-#include <math.h>
-#include <string>
+#include <nds.h> // Include NDS header
 
-using namespace std;
+// Some other headers
+#include <time.h> // Used for initializing random seed
+#include <stdio.h> // Printing text
+#include <math.h> // Math functions
 
 #endif // MAIN_H

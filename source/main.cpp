@@ -5,40 +5,33 @@
 
 ---------------------------------------------------------------------------------*/
 #include "main.h"
+#include "game.h"
 
 #include "titleScreen.h"
 
 int main(void) {
-	PrintConsole bottomScreen;
-	
+	// Initialize random seed
 	srand(time(NULL));
 	
-	// Setup the video modes.
+	// Setup the video modes
 	videoSetMode(MODE_5_2D);
 	videoSetModeSub(MODE_0_2D);
 	
+	// Setup VRAM banks
 	vramSetBankA(VRAM_A_MAIN_SPRITE);
 	vramSetBankB(VRAM_B_MAIN_BG_0x06000000);
 	vramSetBankC(VRAM_C_SUB_BG);
 	
-	// initialize the console
+	// Initialize the console
+	PrintConsole bottomScreen;
 	consoleInit(&bottomScreen, 3, BgType_Text4bpp, BgSize_T_256x256, 31, 0, false, true);
 	
-	// initialize the oam
+	// Initialize the oam ( Sprite system )
 	oamInit(&oamMain, SpriteMapping_Bmp_1D_256, false);
 	
-	// initialize the background
-	int bg = bgInit(0, BgType_Text8bpp, BgSize_T_512x512, 0, 1);
+	// Initialize game
+	Game* game = new Game;
 	
-	while(1) {
-		swiWaitForVBlank();
-		
-		scanKeys();
-		
-		
-		
-		
-		bgUpdate();
-		oamUpdate(&oamMain);
-	}
+	// Update game
+	game->update();
 }

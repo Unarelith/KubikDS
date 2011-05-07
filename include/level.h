@@ -24,6 +24,7 @@ class Level {
 		
 		// Other functions
 		bool isKubeAt(s16 x, s16 y);
+		bool isFinishAt(s16 x, s16 y);
 		
 	private:
 		// Functions

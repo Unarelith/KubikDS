@@ -1,6 +1,9 @@
 #include "player.h"
 #include "game.h"
 
+bool Player::a = false;
+int Player::frame = 0;
+
 Player::Player(s16 x, s16 y) : Sprite(0, SpriteSize_8x8, SpriteColorFormat_Bmp, x, y) {
     dmaFillHalfWords(ARGB16(1,31,31,31), s_gfx, 8*8*2); // Copy player data into sprite gfx
 	
@@ -13,10 +16,9 @@ Player::Player(s16 x, s16 y) : Sprite(0, SpriteSize_8x8, SpriteColorFormat_Bmp, 
 }
 
 Player::~Player() {
+	oamFreeGfx(&oamMain, s_gfx);
 }
 
-bool a = false;
-int frame = 0;
 void Player::move() {
 	// Horizontal movement
 	if(keysHeld() & KEY_LEFT) {
@@ -35,7 +37,7 @@ void Player::move() {
 	s_vx = 0;
 	
 	// Jumping
-	if((keysDown() & KEY_A) && (s_vy == 0) && (!s_jumping)) {
+	if((keysDown() & KEY_B) && (s_vy == 0) && (!s_jumping)) {
 		s_vy = -9;
 		s_jumping = true;
 	}
@@ -70,7 +72,10 @@ void Player::move() {
 		s_x = 124;
 		s_level->scroll(-1, 0);
 	}
-	// 
+}
+
+void Player::update() {
+	// If player is hit
 	if(s_hit) {
 		if(!a) {
 			frame = Game::frame;
@@ -87,6 +92,23 @@ void Player::move() {
 			
 			s_hit = false;
 		}
+	}
+	
+	// Test game over
+	if(s_lifes == 0) {
+		s_lifes = 3;
+		a = false;
+		dmaFillHalfWords(ARGB16(1,31,31,31), s_gfx, 8*8*2);
+		s_hit = false;
+		Game::gameOver();
+	}
+	
+	// Test finish
+	if(s_level->isFinishAt(s_x + 4, s_y + 4)) {
+		a = false;
+		dmaFillHalfWords(ARGB16(1,31,31,31), s_gfx, 8*8*2);
+		s_hit = false;
+		Game::finish();
 	}
 }
 

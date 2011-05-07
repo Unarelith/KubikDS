@@ -15,6 +15,7 @@ Enemy::Enemy(int i, s16 x, s16 y, s32 vx, s32 vy) : Sprite(i, SpriteSize_8x8, Sp
 }
 
 Enemy::~Enemy() {
+	oamFreeGfx(&oamMain, s_gfx);
 }
 
 void Enemy::draw() {

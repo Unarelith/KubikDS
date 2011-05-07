@@ -16,15 +16,23 @@ class Player : public Sprite {
 		
 		// Update functions
 		void move();
+		void update();
 		
 		// Get functions
 		int lifesRemaining() const { return s_lifes; }
 		
 		// Setting functions
 		void setLevel(Level* level) { s_level = level; }
+		void set_vy(s32 vy) { s_vy = vy; }
+		void setJumpState(bool jumping) { s_jumping = jumping; }
+		void setHitState(bool hit) { s_hit = hit; }
 		
 		// Other functions
 		void removeLife();
+		
+		// Static variables
+		static bool a;
+		static int frame;
 		
     private:
 		// Movement
@@ -33,7 +41,7 @@ class Player : public Sprite {
 		bool s_jumping;
 		
 		int s_lifes; // Player's lifes
-		bool s_hit; // Is player is or not
+		bool s_hit; // Is player hit or not
 		
 		Level* s_level; // Pointer to current level
 };

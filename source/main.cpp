@@ -7,8 +7,6 @@
 #include "main.h"
 #include "game.h"
 
-#include "titleScreen.h"
-
 int main(void) {
 	// Initialize random seed
 	srand(time(NULL));
@@ -32,6 +30,5 @@ int main(void) {
 	// Initialize game
 	Game* game = new Game;
 	
-	// Update game
-	game->update();
+	while(1);
 }

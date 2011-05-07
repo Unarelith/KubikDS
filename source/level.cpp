@@ -43,6 +43,13 @@ bool Level::isKubeAt(s16 x, s16 y) {
 	return false;
 }
 
+bool Level::isFinishAt(s16 x, s16 y) {
+	if(s_map->map[(x + s_scrollX) / 8 + (y + s_scrollY) / 8 * s_map->length] == 2) {
+		return true;
+	}
+	return false;
+}
+
 void Level::scroll(s32 x, s32 y) {
 	s_scrollX += x;
 	s_scrollY += y;
@@ -60,6 +67,4 @@ void Level::scroll(s32 x, s32 y) {
 			mapPtr[i + j * 32 + 32 * 32] = s_map->map[(i + 32 + s_scrollX / 8) + (j + s_scrollY / 8) * s_map->length];
 		}
 	}
-	
-	bgSetScroll(s_bg, s_scrollX % 8, s_scrollY % 8);
 }

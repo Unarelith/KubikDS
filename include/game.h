@@ -6,23 +6,45 @@
 #include "enemy.h"
 #include "level.h"
 
+#include "titleScreen.h"
+#include "gameOver.h"
+#include "finished.h"
+
 class Game {
 	public:
 		// Construct & Destruct
 		Game();
 		~Game();
 		
+		// Init functions
+		void init(s16 x, s16 y);
+		
 		// Update functions
 		void update();
-		
-		// Other functions
-		void testCollisionsPE(); // Test collisions between player and enemies
-		void displayHUD(); // Display HUD ( Head Up Display )
 		
 		// Get functions
 		int bg() const { return s_bg; }
 		
+		// Game interface functions
+		void titleScreen(); // Draw title screen
+		void drawCredits(); // Draw credits
+		void displayHUD(); // Display HUD ( Head Up Display )
+		void pause(); // Display pause menu and stop player
+		void gameOverScreen(); // Draw game over screen
+		void finishedScreen(); // Draw finished screen
+		
+		// Other functions
+		void testCollisionsPE(); // Test collisions between player and enemies
+		
+		// Static functions
+		static void gameOver(); // When the game is finished
+		static void finish(); // When the player win
+		
+		// Static variables
 		static int frame; // Current frame
+		static bool isGameOver; // Is the game over
+		static bool paused; // Is the game paused
+		static bool isFinished; // Is the game finished
 	
 	private:
 		int s_bg; // BG id returned by bgInit()

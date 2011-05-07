@@ -16,6 +16,9 @@ class Sprite {
         u16* gfx() const { return s_gfx; } // Get sprite gfx pointer
         s16 x() const { return s_x; } // Get sprite x coordinate
         s16 y() const { return s_y; } // Get sprite y coordinate
+        
+        // Setting functions
+        void setPosition(s16 x, s16 y) { s_x = x; s_y = y; }
     
     protected:
         int s_i; // Sprite index

@@ -7,6 +7,8 @@
 #include "main.h"
 #include "game.h"
 
+#include "efs_lib.h"
+
 int main(void) {
 	// Initialize random seed
 	srand(time(NULL));
@@ -24,6 +26,12 @@ int main(void) {
 	PrintConsole bottomScreen;
 	consoleInit(&bottomScreen, 3, BgType_Text4bpp, BgSize_T_256x256, 31, 0, false, true);
 	
+	// Initialize EFS filesystem
+	if(!EFS_Init(EFS_AND_FAT)) {
+		printf("FATAL ERROR: Bad filesystem init");
+		while(1) { swiWaitForVBlank(); }
+	}
+	
 	// Initialize the oam ( Sprite system )
 	oamInit(&oamMain, SpriteMapping_Bmp_1D_256, false);
 	
@@ -31,4 +39,6 @@ int main(void) {
 	Game* game = new Game;
 	
 	while(1);
+	
+	delete game;
 }

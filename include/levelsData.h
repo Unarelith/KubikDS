@@ -4,6 +4,7 @@
 #include "main.h"
 
 typedef struct {
+	int id;
 	u16* map;
 	u16 length;
 	u16 height;
@@ -11,5 +12,7 @@ typedef struct {
 } Map;
 
 extern Map map1;
+
+void fill_map(Map* map);
 
 #endif // LEVELSDATA_H

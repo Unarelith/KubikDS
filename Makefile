@@ -119,6 +119,8 @@ $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	@make --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 	@efs $(TARGET).nds
+	@cp $(TARGET).nds $(TARGET)_r4.nds
+	@dlditool r4tf.dldi $(TARGET)_r4.nds
 
 #---------------------------------------------------------------------------------
 clean:

@@ -6,7 +6,7 @@ void fill_map(Map* map) {
 	map->map = (u16*)malloc(map->length * map->height * sizeof(u16));
 	
 	char filename[25];
-	sprintf(filename, "efs:/maps/map%i.map", map->id);
+	sprintf(filename, "efs:/map%i/map", map->id);
 	
 	FILE* file = fopen(filename, "r");
 	int currentChar = 0;

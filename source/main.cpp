@@ -10,6 +10,8 @@
 #include "efs_lib.h"
 
 int main(void) {
+	defaultExceptionHandler();
+	
 	// Initialize random seed
 	srand(time(NULL));
 	
@@ -26,11 +28,15 @@ int main(void) {
 	PrintConsole bottomScreen;
 	consoleInit(&bottomScreen, 3, BgType_Text4bpp, BgSize_T_256x256, 31, 0, false, true);
 	
+	printf("EFS loading...");
+	
 	// Initialize EFS filesystem
 	if(!EFS_Init(EFS_AND_FAT)) {
 		printf("FATAL ERROR: Bad filesystem init");
 		while(1) { swiWaitForVBlank(); }
 	}
+	
+	printf("EFS loaded!");
 	
 	// Initialize the oam ( Sprite system )
 	oamInit(&oamMain, SpriteMapping_Bmp_1D_256, false);

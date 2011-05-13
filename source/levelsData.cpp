@@ -17,14 +17,14 @@ void fill_map(Map* map) {
 		
 		printf("\x1b[11;11HLoading...");
 		
-		do {
+		 while(currentChar != EOF) {
 			currentChar = fgetc(file);
 			sprintf(c, "%c", currentChar);
-			if((currentChar != ',') && (currentChar != '\n') && (n < map->length * map->height)) {
+			if((currentChar != ',') && (currentChar != '\n')) {
 				map->map[n] = (u16)atoi(c);
 				n++;
 			}
-		} while(currentChar != EOF);
+		}
 		
 		fclose(file);
 	} else {

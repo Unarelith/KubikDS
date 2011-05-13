@@ -3,6 +3,8 @@
 
 #include "main.h"
 
+#include "malloc.h"
+
 typedef struct {
 	int id;
 	u16* map;

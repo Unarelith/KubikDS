@@ -1,19 +1,17 @@
 #include "levelsData.h"
 
-u16 map[96 * 24];
-
-Map map1 = {0, map, 96, 24, ARGB16(1,0,31,31)};
-
-using namespace std;
+Map map1 = {0, 0, 96, 24, ARGB16(1,0,31,31)};
 
 void fill_map(Map* map) {
+	map->map = (u16*)malloc(map->length * map->height * sizeof(u16));
+	
 	char filename[25];
 	sprintf(filename, "efs:/maps/map%i.map", map->id);
 	
 	FILE* file = fopen(filename, "r");
 	int currentChar = 0;
 	int n = 0;
-	char c[1];
+	char c[2];
 	
 	if(file != NULL) {
 		
@@ -22,7 +20,7 @@ void fill_map(Map* map) {
 		do {
 			currentChar = fgetc(file);
 			sprintf(c, "%c", currentChar);
-			if((c != ",") && (n < 2304)) {
+			if((currentChar != ',') && (currentChar != '\n') && (n < map->length * map->height)) {
 				map->map[n] = (u16)atoi(c);
 				n++;
 			}

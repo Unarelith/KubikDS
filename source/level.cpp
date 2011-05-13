@@ -21,6 +21,7 @@ Level::Level(int id, Map* map, int bg, s16 scrollX, s16 scrollY) {
 }
 
 Level::~Level() {
+	free(s_map->map);
 }
 
 void Level::initializeBg() {

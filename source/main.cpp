@@ -31,7 +31,7 @@ int main(void) {
 	printf("EFS loading...");
 	
 	// Initialize EFS filesystem
-	if(!EFS_Init(EFS_AND_FAT)) {
+	if(!EFS_Init(EFS_AND_FAT | EFS_DEFAULT_DEVICE, NULL)) {
 		printf("FATAL ERROR: Bad filesystem init");
 		while(1) { swiWaitForVBlank(); }
 	}

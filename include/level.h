@@ -9,7 +9,6 @@
 class Level {
 	public:
 		// Construct & Destruct
-		Level(int id, Map* map, int bg);
 		Level(int id, Map* map, int bg, s16 scrollX, s16 scrollY);
 		~Level();
 		
@@ -21,6 +20,7 @@ class Level {
 		u16 length() const { return s_map->length; }
 		s32 scrollX() const { return s_scrollX; }
 		s32 scrollY() const { return s_scrollY; }
+		Map* map() const { return s_map; }
 		
 		// Other functions
 		bool isKubeAt(s16 x, s16 y);

@@ -1,2 +1,0 @@
-Copy /tools/efs file to /bin, /usr/bin or $(DEVKITARM)/bin
-

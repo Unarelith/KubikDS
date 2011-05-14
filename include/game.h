@@ -45,6 +45,7 @@ class Game {
 		static bool isGameOver; // Is the game over
 		static bool paused; // Is the game paused
 		static bool isFinished; // Is the game finished
+		static Level* currentLevel; // Pointer to the current level
 	
 	private:
 		int s_bg; // BG id returned by bgInit()

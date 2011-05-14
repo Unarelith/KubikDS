@@ -118,18 +118,18 @@ endif
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	@make --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
-	@efs $(TARGET).nds
+	@./tools/efs $(TARGET).nds
 	@cp $(TARGET).nds $(TARGET)_r4.nds
 	@dlditool r4tf.dldi $(TARGET)_r4.nds
 
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).nds
+	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).nds $(TARGET)_r4.nds
 
 #---------------------------------------------------------------------------------
 run:
-	@desmume-cli --gbaslot-rom=$(TARGET).nds $(TARGET).nds
+	@./tools/desmume-cli --gbaslot-rom=$(TARGET).nds $(TARGET).nds
 
 #---------------------------------------------------------------------------------
 else

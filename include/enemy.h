@@ -3,7 +3,6 @@
 
 #include "main.h"
 #include "sprite.h"
-#include "level.h"
 
 class Enemy : public Sprite {
 	public:
@@ -15,12 +14,22 @@ class Enemy : public Sprite {
 		void draw();
 		void move();
 		
-		// Setting functions
-		void setLevel(Level* level) { s_level = level; }
+		// Get functions
+		s32 vx() { return s_vx; }
+		s32 vy() { return s_vy; }
+		
+		// Other functions
+		void reset();
 		
 		static int nbEnemies;
 	
 	private:
+		// Initial position
+		s16 s_ix;
+		s16 s_iy;
+		s32 s_ivx;
+		s32 s_ivy;
+		
 		// Absolute position
 		s16 s_ax;
 		s16 s_ay;
@@ -28,8 +37,6 @@ class Enemy : public Sprite {
 		// Movement
 		s32 s_vx;
 		s32 s_vy;
-		
-		Level* s_level; // Pointer to the current level
 };
 
 #endif // ENEMY_H

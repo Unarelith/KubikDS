@@ -13,9 +13,6 @@ Sprite::~Sprite() {
 }
 
 void Sprite::draw() {
-	// Debug: Print sprites coordinates
-	//iprintf("%i, %i\n", s_x, s_y);
-	
 	// Draw the sprite on the screen
     oamSet(&oamMain, s_i, s_x, s_y, 0,
            15, s_size, s_format, s_gfx, -1,

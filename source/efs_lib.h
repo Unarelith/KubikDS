@@ -51,21 +51,14 @@ extern "C" {
 #define EFS_MAXPATHLEN  768
 #define EFS_MAXNAMELEN  128
 
-#ifdef MAX_FILENAME_LENGTH
-#if MAX_FILENAME_LENGTH >=256
-#warning "You might miss some characters in the file's name"
-#endif
-#endif
-
 // the NDS file path, dynamically set by the lib
 extern char efs_path[EFS_MAXPATHLEN];
 
 // init options
 typedef enum {
-    EFS_ONLY = BIT(0),           // init only the efslib, may require prior fatlib init
-	EFS_FAT_PRIO = BIT(1),   	 //set the fat prio, may require prior fatlib init or EFS_AND_FAT
-    EFS_AND_FAT = BIT(2),        // init libfat with default options before efslib if needed
-    EFS_DEFAULT_DEVICE = BIT(3)  // set as default device in devoptab
+    EFS_ONLY = 0,           // init only the efslib, may require prior fatlib init
+    EFS_AND_FAT = 1,        // init libfat with default options before efslib if needed
+    EFS_DEFAULT_DEVICE = 2  // set as default device in devoptab
 
 } EFS_Init_Options;
 
@@ -74,7 +67,7 @@ typedef enum {
 // return 1 if the FS has been initialized properly
 // return 0 if there was an error initializing the FS (libfat included)
 int EFS_Init(int options, char *path);
-
+int EFS_ChDefaultDir(void);
 
 // devoptab functions implementation (don't use those directly)
 DIR_ITER* EFS_DirOpen(struct _reent *r, DIR_ITER *dirState, const char *path);
@@ -83,13 +76,13 @@ int EFS_DirNext(struct _reent *r, DIR_ITER *dirState, char *filename, struct sta
 int EFS_DirClose(struct _reent *r, DIR_ITER *dirState);
 int EFS_Open(struct _reent *r, void *fileStruct, const char *path, int flags, int mode);
 int EFS_Close(struct _reent *r, int fd);
-ssize_t EFS_Read(struct _reent *r, int fd, char *ptr, size_t len);
-ssize_t EFS_Write(struct _reent *r, int fd, const char *ptr, size_t len);
-off_t EFS_Seek(struct _reent *r, int fd, off_t pos, int dir);
+int EFS_Read(struct _reent *r, int fd, char *ptr, int len);
+int EFS_Write(struct _reent *r, int fd, const char *ptr, int len);
+int EFS_Seek(struct _reent *r, int fd, int pos, int dir);
 int EFS_Fstat(struct _reent *r, int fd, struct stat *st);
 int EFS_Stat(struct _reent *r, const char *file, struct stat *st);
 int EFS_ChDir(struct _reent *r, const char *name);    
-
+int EFS_ChDefaultDir(void);
 
 #ifdef __cplusplus
 }

@@ -3,7 +3,6 @@
 
 #include "main.h"
 #include "sprite.h"
-#include "level.h"
 
 #define GRAVITY 1
 #define VY_MAX 8
@@ -22,7 +21,6 @@ class Player : public Sprite {
 		int lifesRemaining() const { return s_lifes; }
 		
 		// Setting functions
-		void setLevel(Level* level) { s_level = level; }
 		void set_vy(s32 vy) { s_vy = vy; }
 		void setJumpState(bool jumping) { s_jumping = jumping; }
 		void setHitState(bool hit) { s_hit = hit; }
@@ -42,8 +40,6 @@ class Player : public Sprite {
 		
 		int s_lifes; // Player's lifes
 		bool s_hit; // Is player hit or not
-		
-		Level* s_level; // Pointer to current level
 };
 
 #endif // PLAYER_H

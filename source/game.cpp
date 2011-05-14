@@ -4,6 +4,7 @@ int Game::frame = 0;
 bool Game::isGameOver = false;
 bool Game::paused = false;
 bool Game::isFinished = false;
+Level* Game::currentLevel = 0;
 
 int i;
 Game::Game() {
@@ -24,30 +25,18 @@ void Game::init(s16 px, s16 py) {
 	// Set player position
 	s_player->setPosition(px, py);
 	
-	// Reset nbEnemies count
-	Enemy::nbEnemies = 0;
-	
-	// Initialize the enemies
-	Enemy* enemy1 = new Enemy(1, 216, 176, 1, 0);
-	Enemy* enemy2 = new Enemy(2, 128, 64, 0, 1);
-	
-	Enemy* enemies[60] = {
-		enemy1,
-		enemy2
-	};
-	
-	s_enemies = enemies;
-	
 	// Initialize the level
-	s_level = new Level(0, &map1, s_bg);
+	s_level = new Level(0, &map1, s_bg, 0, 0);
 	
-	// Give current level data to player
-	s_player->setLevel(s_level);
+	s_enemies = s_level->map()->enemies;
 	
-	// Give current level data to enemies
+	// Reset enemies
 	for(i = 0 ; i < Enemy::nbEnemies ; i++) {
-		s_enemies[i]->setLevel(s_level);
+		s_enemies[i]->reset();
 	}
+	
+	// Give current level data to the static variable
+	Game::currentLevel = s_level;
 	
 	update();
 }
@@ -181,6 +170,7 @@ void Game::pause() {
 		scanKeys();
 		
 		consoleClear();
+		
 		printf("\x1b[1;14HPause");
 			printf("\x1b[8;12HContinue");
 			printf("\x1b[11;12HMain menu");

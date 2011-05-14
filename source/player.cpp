@@ -28,7 +28,7 @@ void Player::move() {
 		s_vx = 1;
 	}
     
-	if((s_level->isKubeAt(s_x + s_vx, s_y)) || (s_level->isKubeAt(s_x + 7 + s_vx, s_y)) || (s_level->isKubeAt(s_x + s_vx, s_y + 7)) || (s_level->isKubeAt(s_x + 7 + s_vx, s_y + 7)) || (s_x + s_vx < 0) || (s_x + s_vx > s_level->length() * 8)) {
+	if((Game::currentLevel->isKubeAt(s_x + s_vx, s_y)) || (Game::currentLevel->isKubeAt(s_x + 7 + s_vx, s_y)) || (Game::currentLevel->isKubeAt(s_x + s_vx, s_y + 7)) || (Game::currentLevel->isKubeAt(s_x + 7 + s_vx, s_y + 7)) || (s_x + s_vx < 0) || (s_x + s_vx > Game::currentLevel->length() * 8)) {
 		s_vx = 0;
 	}
 	
@@ -48,7 +48,7 @@ void Player::move() {
 		s_vy = VY_MAX;
 	}
 	
-	if((s_level->isKubeAt(s_x, s_y + 7 + s_vy)) || (s_level->isKubeAt(s_x + 7, s_y + 7 + s_vy))) {
+	if((Game::currentLevel->isKubeAt(s_x, s_y + 7 + s_vy)) || (Game::currentLevel->isKubeAt(s_x + 7, s_y + 7 + s_vy))) {
 		s_vy = 0;
 		s_jumping = false;
 	}
@@ -63,14 +63,14 @@ void Player::move() {
 	 * 
 	 */
 	
-	if((s_x > 124) && (s_level->scrollX() < s_level->length() * 8 - 256)) {
+	if((s_x > 124) && (Game::currentLevel->scrollX() < Game::currentLevel->length() * 8 - 256)) {
 		s_x = 124;
-		s_level->scroll(1, 0);
+		Game::currentLevel->scroll(1, 0);
 	}
 	
-	if((s_x < 124) && (s_level->scrollX() > 0)) {
+	if((s_x < 124) && (Game::currentLevel->scrollX() > 0)) {
 		s_x = 124;
-		s_level->scroll(-1, 0);
+		Game::currentLevel->scroll(-1, 0);
 	}
 }
 
@@ -104,7 +104,7 @@ void Player::update() {
 	}
 	
 	// Test finish
-	if(s_level->isFinishAt(s_x + 4, s_y + 4)) {
+	if(Game::currentLevel->isFinishAt(s_x + 4, s_y + 4)) {
 		a = false;
 		dmaFillHalfWords(ARGB16(1,31,31,31), s_gfx, 8*8*2);
 		s_hit = false;

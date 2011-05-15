@@ -26,7 +26,8 @@ void Game::init(s16 px, s16 py) {
 	s_player->setPosition(px, py);
 	
 	// Initialize the level
-	s_level = new Level(0, &map1, s_bg, 0, 0);
+	//s_level = new Level(0, &map0, s_bg, 0, 0);
+	s_level = new Level(1, &map1, s_bg, 0, 384);
 	
 	s_enemies = s_level->map()->enemies;
 	
@@ -127,10 +128,12 @@ void Game::drawCredits() {
 			printf("\x1b[3;2H- Quent42340");
 		
 		printf("\x1b[5;1HSpecial thanks:");
-			printf("\x1b[7;2H- ludo6431,smealum,EvilTroopa");
-			printf("\x1b[8;4Hfrom dev-fr");
-			printf("\x1b[9;2H- Thomas Gosselin, a friend");
-			printf("\x1b[10;2H- And those I've forgotten.");
+			printf("\x1b[7;2H- From dev-fr:");
+				printf("\x1b[8;4H* ludo6431");
+				printf("\x1b[9;4H* smealum");
+				printf("\x1b[10;4H* EvilTroopa");
+			
+			printf("\x1b[12;2H- And those I've forgotten.");
 		
 		printf("\x1b[18;10H> Main menu");
 		
@@ -216,10 +219,6 @@ void Game::pause() {
 		
 		paused = false;
 		
-		for(i = 0 ; i < Enemy::nbEnemies ; i++) {
-			delete s_enemies[i];
-		}
-		
 		s_level = NULL;
 		
 		oamDisable(&oamMain);
@@ -269,10 +268,6 @@ void Game::update() {
 		if((isGameOver) || (isFinished)) {
 			break;
 		}
-	}
-	
-	for(i = 0 ; i < Enemy::nbEnemies ; i++) {
-		delete s_enemies[i];
 	}
 	
 	s_level = NULL;

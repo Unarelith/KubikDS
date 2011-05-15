@@ -59,7 +59,7 @@ void Player::move() {
 	
 	/* TODO:
 	 * 
-	 * Here is only horizontal scrolling, and it may be optimized: The scrolling could be started before 124 and stopped after 124
+	 * It may be optimized: The scrolling could be started before 124 and stopped after 124
 	 * 
 	 */
 	
@@ -71,6 +71,18 @@ void Player::move() {
 	if((s_x < 124) && (Game::currentLevel->scrollX() > 0)) {
 		s_x = 124;
 		Game::currentLevel->scroll(-1, 0);
+	}
+	
+	if(!s_jumping) {
+		if((s_y > 120) && (Game::currentLevel->scrollY() < Game::currentLevel->height() * 8 - 192)) {
+			s_y -= s_vy;
+			Game::currentLevel->scroll(0, s_vy);
+		}
+		
+		if((s_y < 72) && (Game::currentLevel->scrollY() > 0)) {
+			s_y++;
+			Game::currentLevel->scroll(0, -1);
+		}
 	}
 }
 

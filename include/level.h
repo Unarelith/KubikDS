@@ -13,11 +13,12 @@ class Level {
 		~Level();
 		
 		// Update functions
-		void scroll(s32 x, s32 y);
+		void scroll(s32 x, s32 y, bool absolute = false);
 		
 		// Get functions
 		int id() const { return s_id; }
 		u16 length() const { return s_map->length; }
+		u16 height() const { return s_map->height; }
 		s32 scrollX() const { return s_scrollX; }
 		s32 scrollY() const { return s_scrollY; }
 		Map* map() const { return s_map; }

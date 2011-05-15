@@ -1,6 +1,7 @@
 #include "levelsData.h"
 
-Map map1 = {0, 0, 0, 96, 24, ARGB16(1,0,31,31)};
+Map map0 = {0, 0, 0, 96, 24, ARGB16(1,0,31,31)};
+Map map1 = {1, 0, 0, 32, 72, ARGB16(1,0,31,31)};
 
 void fill_map(Map* map) {
 	// Map

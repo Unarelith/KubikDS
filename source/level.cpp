@@ -1,4 +1,5 @@
 #include "level.h"
+#include <stdlib.h>
 
 Level::Level(int id, Map* map, int bg, s16 scrollX, s16 scrollY) {
 	s_id = id;
@@ -30,8 +31,8 @@ void Level::initializeBg() {
 	int i, j;
 	for(j = 0 ; j < 32 ; j++) {
 		for(i = 0 ; i < 32 ; i++) {
-			mapPtr[i + j * 32] = s_map->map[i + j * s_map->length];
-			mapPtr[i + 32 + j * 32 + 32 * 32] = s_map->map[(i + 32) + j * s_map->length];
+			mapPtr[i + j * 32] = s_map->map[(i + s_scrollX / 8) + (j + s_scrollY / 8) * s_map->length];
+			mapPtr[i + j * 32 + 32 * 32] = s_map->map[(i + 32 + s_scrollX / 8) + (j + s_scrollY / 8) * s_map->length];
 		}
 	}
 }
@@ -50,9 +51,14 @@ bool Level::isFinishAt(s16 x, s16 y) {
 	return false;
 }
 
-void Level::scroll(s32 x, s32 y) {
-	s_scrollX += x;
-	s_scrollY += y;
+void Level::scroll(s32 x, s32 y, bool absolute) {
+	if(absolute) {
+		s_scrollX = x;
+		s_scrollY = y;
+	} else {
+		s_scrollX += x;
+		s_scrollY += y;
+	}
 	
 	u16* mapPtr = bgGetMapPtr(s_bg);
 	

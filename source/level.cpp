@@ -1,9 +1,12 @@
 #include "level.h"
 #include <stdlib.h>
 
+int Level::nbLevels = 0;
+
 Level::Level(int id, Map* map, int bg, s16 scrollX, s16 scrollY) {
 	s_id = id;
 	s_map = map;
+	
 	if(s_map->map == 0) {
 		// Reset nbEnemies count
 		Enemy::nbEnemies = 0;
@@ -11,11 +14,11 @@ Level::Level(int id, Map* map, int bg, s16 scrollX, s16 scrollY) {
 		// Fill level's map and enemies
 		fill_map(map);
 	}
-	s_bg = bg;
+	
 	s_scrollX = scrollX;
 	s_scrollY = scrollY;
 	
-	initializeBg();
+	nbLevels++;
 }
 
 Level::~Level() {

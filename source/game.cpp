@@ -14,6 +14,9 @@ Game::Game() {
 	// Initialize the player
 	s_player = new Player(0, 0);
 	
+	// Initialize all levels
+	initLevels();
+	
 	// Display titleScreen
 	titleScreen();
 }
@@ -21,23 +24,29 @@ Game::Game() {
 Game::~Game() {
 }
 
+void Game::initLevels() {
+	Level* level0 = new Level(0, &map0, s_bg, 0, 0);
+	Level* level1 = new Level(1, &map1, s_bg, 0, 0);
+	
+	Level* s_levels[2] = {
+		level0, level1
+	};
+}
+
 void Game::init(s16 px, s16 py) {
 	// Set player position
 	s_player->setPosition(px, py);
 	
-	// Initialize the level
-	//s_level = new Level(0, &map0, s_bg, 0, 0);
-	s_level = new Level(1, &map1, s_bg, 0, 384);
+	// Init currentLevel
+	currentLevel->initializeBg();
 	
-	s_enemies = s_level->map()->enemies;
+	// Init enemies table
+	s_enemies = currentLevel->map()->enemies;
 	
 	// Reset enemies
 	for(i = 0 ; i < Enemy::nbEnemies ; i++) {
 		s_enemies[i]->reset();
 	}
-	
-	// Give current level data to the static variable
-	Game::currentLevel = s_level;
 	
 	update();
 }
@@ -106,14 +115,9 @@ void Game::titleScreen() {
 	consoleClear();
 	
 	if(curPos == 1) {
-		// Enable sprite system
-		oamEnable(&oamMain);
-		
-		// Initialize game system
-		init(10, 176);
+		levelsMenu();
 	}
 	else if(curPos == 2) {
-		consoleClear();
 		drawCredits();
 	}
 }
@@ -147,6 +151,57 @@ void Game::drawCredits() {
 	titleScreen();
 }
 
+void Game::levelsMenu() {
+	int curPos = 0;
+	
+	while(1) {
+		swiWaitForVBlank();
+		
+		scanKeys();
+		
+		consoleClear();
+		
+		printf("\x1b[1;8HChoose your level");
+		
+		for(i = 0 ; i < Level::nbLevels ; i++) {
+			printf("\x1b[%i;%iHLevel %i", 3 + 2 * i, 4, i);
+		}
+		
+		printf("\x1b[%i;2H>", 3 + 2 * curPos);
+		
+		if(keysDown() & KEY_DOWN) {
+			curPos++;
+		}
+		else if(keysDown() & KEY_UP) {
+			curPos--;
+		}
+		
+		if(curPos < 0) {
+			curPos = Level::nbLevels - 1;
+		}
+		else if(curPos > Level::nbLevels - 1){
+			curPos = 0;
+		}
+		
+		if(keysDown() & KEY_A) {
+			break;
+		}
+		
+		bgUpdate();
+	}
+	
+	consoleClear();
+	
+	// Enable sprite system
+	oamEnable(&oamMain);
+	
+	// Set the selectionned level as current level
+	currentLevel = s_levels[curPos];
+	
+	// Initialize game system
+	init(10, 176);
+}
+
 void Game::testCollisionsPE() {
 	for(i = 0 ; i < Enemy::nbEnemies ; i++) {
 		if((s_player->x() + 7 > s_enemies[i]->x()) && (s_player->x() < s_enemies[i]->x() + 7) && (s_player->y() < s_enemies[i]->y() + 7) && (s_player->y() + 7 > s_enemies[i]->y())) {
@@ -158,8 +213,8 @@ void Game::testCollisionsPE() {
 void Game::displayHUD() {
 	consoleClear();
 	printf("\x1b[1;1HLifes: %i", s_player->lifesRemaining());
-	printf("\x1b[3;1HPosition: %i/%i", (s_player->x() + s_level->scrollX())/8, s_level->length());
-	printf("\x1b[5;1HLevel: %i", s_level->id());
+	printf("\x1b[3;1HPosition: %i/%i", (s_player->x() + currentLevel->scrollX())/8, currentLevel->length());
+	printf("\x1b[5;1HLevel: %i", currentLevel->id());
 }
 
 void Game::pause() {
@@ -219,7 +274,7 @@ void Game::pause() {
 		
 		paused = false;
 		
-		s_level = NULL;
+		currentLevel = NULL;
 		
 		oamDisable(&oamMain);
 		
@@ -260,7 +315,7 @@ void Game::update() {
 		}
 		
 		// Manage bg scrolling
-		bgSetScroll(s_bg, s_level->scrollX() % 8, s_level->scrollY() % 8);
+		bgSetScroll(s_bg, currentLevel->scrollX() % 8, currentLevel->scrollY() % 8);
 		
 		bgUpdate(); // Update the background
 		oamUpdate(&oamMain); // Update the sprite system
@@ -270,7 +325,7 @@ void Game::update() {
 		}
 	}
 	
-	s_level = NULL;
+	currentLevel = NULL;
 	
 	oamDisable(&oamMain);
 	

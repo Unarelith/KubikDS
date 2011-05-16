@@ -18,6 +18,7 @@ class Game {
 		
 		// Init functions
 		void init(s16 x, s16 y);
+		void initLevels();
 		
 		// Update functions
 		void update();
@@ -28,6 +29,7 @@ class Game {
 		// Game interface functions
 		void titleScreen(); // Draw title screen
 		void drawCredits(); // Draw credits
+		void levelsMenu(); // Display levels menu
 		void displayHUD(); // Display HUD ( Head Up Display )
 		void pause(); // Display pause menu and stop player
 		void gameOverScreen(); // Draw game over screen
@@ -51,7 +53,7 @@ class Game {
 		int s_bg; // BG id returned by bgInit()
 		Player* s_player; // Pointer to player
 		Enemy** s_enemies; // Enemies table
-		Level* s_level; // Pointer to current level
+		Level** s_levels; // Levels table
 };
 
 #endif // GAME_H

@@ -28,9 +28,11 @@ void Game::initLevels() {
 	Level* level0 = new Level(0, &map0, s_bg, 0, 0);
 	Level* level1 = new Level(1, &map1, s_bg, 0, 0);
 	
-	Level* s_levels[2] = {
+	Level* levels[2] = {
 		level0, level1
 	};
+	
+	s_levels = levels;
 }
 
 void Game::init(s16 px, s16 py) {

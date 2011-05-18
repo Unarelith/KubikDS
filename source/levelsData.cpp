@@ -1,7 +1,7 @@
 #include "levelsData.h"
 
-Map map0 = {0, 0, 0, 96, 24, ARGB16(1,0,31,31)};
-Map map1 = {1, 0, 0, 32, 72, ARGB16(1,0,31,31)};
+Map map0 = {0, 0, 0, 96, 24, ARGB16(1,0,31,31), 0, 0, 0, 0};
+Map map1 = {1, 0, 0, 32, 72, ARGB16(1,0,31,31), 0, 0, 0, 0};
 
 void fill_map(Map* map) {
 	// Map
@@ -60,6 +60,28 @@ void fill_map(Map* map) {
 		fclose(file);
 	} else {
 		printf("Error while reading enemies set %i\nFilename: %s", map->id, filename);
+		while(1) { swiWaitForVBlank(); }
+	}
+	
+	// Map params
+	sprintf(filename, "efs:/level%i/params", map->id);
+	
+	file = fopen(filename, "r");
+	
+	n = 0;
+	
+	if(file != NULL) {
+		
+		printf("\x1b[11;11HLoading...");
+		
+		while(fgets(line, MAX_SIZE, file) != NULL) {
+			sscanf(line, "%i;%i;%hi;%hi", &map->scrollX, &map->scrollY, &map->playerX, &map->playerY);
+			n++;
+		}
+		
+		fclose(file);
+	} else {
+		printf("Error while reading params %i\nFilename: %s", map->id, filename);
 		while(1) { swiWaitForVBlank(); }
 	}
 }

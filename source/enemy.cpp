@@ -26,7 +26,7 @@ Enemy::~Enemy() {
 }
 
 void Enemy::draw() {
-	if((s_x + 7 > 0) && (s_x < 256 + Game::currentLevel->scrollX()) && (s_y + 7 >= 0) && (s_y <= 192 + Game::currentLevel->scrollY())) { // If the sprite is on the screen
+	if((s_x + 7 > 0) && (s_x < 256) && (s_y + 7 > 0) && (s_y < 192)) { // If the sprite is on the screen
 		// Draw the sprite on the screen
 		oamSet(&oamMain, s_i, s_x, s_y, 0,
 			   15, s_size, s_format, s_gfx, -1,

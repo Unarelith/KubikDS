@@ -9,7 +9,7 @@
 class Level {
 	public:
 		// Construct & Destruct
-		Level(int id, Map* map, int bg, s16 scrollX, s16 scrollY);
+		Level(int id, Map* map, int bg);
 		~Level();
 		
 		// Init functions
@@ -17,6 +17,9 @@ class Level {
 		
 		// Update functions
 		void scroll(s32 x, s32 y, bool absolute = false);
+		
+		// Reset functions
+		void resetScrolling();
 		
 		// Get functions
 		int id() const { return s_id; }

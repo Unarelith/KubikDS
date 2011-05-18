@@ -1,9 +1,9 @@
 #include "level.h"
-#include <stdlib.h>
+#include "game.h"
 
 int Level::nbLevels = 0;
 
-Level::Level(int id, Map* map, int bg, s16 scrollX, s16 scrollY) {
+Level::Level(int id, Map* map, int bg) {
 	s_id = id;
 	s_map = map;
 	s_bg = bg;
@@ -13,11 +13,11 @@ Level::Level(int id, Map* map, int bg, s16 scrollX, s16 scrollY) {
 		Enemy::nbEnemies = 0;
 		
 		// Fill level's map and enemies
-		fill_map(map);
+		fill_map(s_map);
 	}
 	
-	s_scrollX = scrollX;
-	s_scrollY = scrollY;
+	s_scrollX = s_map->scrollX;
+	s_scrollY = s_map->scrollY;
 	
 	nbLevels++;
 }
@@ -77,4 +77,9 @@ void Level::scroll(s32 x, s32 y, bool absolute) {
 			mapPtr[i + j * 32 + 32 * 32] = s_map->map[(i + 32 + s_scrollX / 8) + (j + s_scrollY / 8) * s_map->length];
 		}
 	}
+}
+
+void Level::resetScrolling() {
+	s_scrollX = s_map->scrollX;
+	s_scrollY = s_map->scrollY;
 }

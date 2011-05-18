@@ -25,19 +25,19 @@ Game::~Game() {
 }
 
 void Game::initLevels() {
-	Level* level0 = new Level(0, &map0, s_bg, 0, 0);
-	Level* level1 = new Level(1, &map1, s_bg, 0, 0);
+	Level* level0 = new Level(0, &map0, s_bg);
+	Level* level1 = new Level(1, &map1, s_bg);
 	
-	Level* levels[2] = {
-		level0, level1
-	};
-	
-	s_levels = levels;
+	s_levels[0] = level0;
+	s_levels[1] = level1;
 }
 
 void Game::init(s16 px, s16 py) {
 	// Set player position
 	s_player->setPosition(px, py);
+	
+	// Reset level scrolling
+	currentLevel->resetScrolling();
 	
 	// Init currentLevel
 	currentLevel->initializeBg();
@@ -201,7 +201,7 @@ void Game::levelsMenu() {
 	currentLevel = s_levels[curPos];
 	
 	// Initialize game system
-	init(10, 176);
+	init(currentLevel->map()->playerX, currentLevel->map()->playerY);
 }
 
 void Game::testCollisionsPE() {
@@ -215,8 +215,9 @@ void Game::testCollisionsPE() {
 void Game::displayHUD() {
 	consoleClear();
 	printf("\x1b[1;1HLifes: %i", s_player->lifesRemaining());
-	printf("\x1b[3;1HPosition: %i/%i", (s_player->x() + currentLevel->scrollX())/8, currentLevel->length());
-	printf("\x1b[5;1HLevel: %i", currentLevel->id());
+	//printf("\x1b[3;1HPosition: %i;%i / %i:%i", (s_player->x() + currentLevel->scrollX())/8, (s_player->y() + currentLevel->scrollY())/8, currentLevel->length(), currentLevel->height());
+	// TODO: A mini map to show position
+	printf("\x1b[3;1HLevel: %i", currentLevel->id());
 }
 
 void Game::pause() {
@@ -355,13 +356,13 @@ void Game::gameOverScreen() {
 		
 		consoleClear();
 		printf("\x1b[1;11HGame Over");
-			printf("\x1b[8;12HTry again");
+			//printf("\x1b[8;12HTry again");
 			printf("\x1b[11;12HMain menu");
 		
 		if(curPos == 1) {
-			printf("\x1b[8;10H>");
+			printf("\x1b[11;10H>");
 		}
-		else if (curPos == 2) {
+		/*else if (curPos == 2) {
 			printf("\x1b[11;10H>");
 		}
 		
@@ -377,7 +378,7 @@ void Game::gameOverScreen() {
 		}
 		else if(curPos > 2){
 			curPos = 1;
-		}
+		}*/
 		
 		if(keysDown() & KEY_A) {
 			break;
@@ -390,14 +391,14 @@ void Game::gameOverScreen() {
 	isGameOver = false;
 	
 	if(curPos == 1) {
-		// Enable sprite system
+	/*	// Enable sprite system
 		oamEnable(&oamMain);
 		
 		// Initialize game system
 		init(10, 176);
 	}
 	else if(curPos == 2) {
-		// Return to title screen
+		// Return to title screen*/
 		titleScreen();
 	}
 }
@@ -418,13 +419,13 @@ void Game::finishedScreen() {
 		
 		consoleClear();
 		printf("\x1b[1;12HYou win!");
-			printf("\x1b[8;12HPlay again");
+			//printf("\x1b[8;12HPlay again");
 			printf("\x1b[11;12HMain menu");
 		
 		if(curPos == 1) {
-			printf("\x1b[8;10H>");
+			printf("\x1b[11;10H>");
 		}
-		else if (curPos == 2) {
+		/*else if (curPos == 2) {
 			printf("\x1b[11;10H>");
 		}
 		
@@ -440,7 +441,7 @@ void Game::finishedScreen() {
 		}
 		else if(curPos > 2){
 			curPos = 1;
-		}
+		}*/
 		
 		if(keysDown() & KEY_A) {
 			break;
@@ -453,14 +454,14 @@ void Game::finishedScreen() {
 	isFinished = false;
 	
 	if(curPos == 1) {
-		// Enable sprite system
+	/*	// Enable sprite system
 		oamEnable(&oamMain);
 		
 		// Initialize game system
 		init(10, 176);
 	}
 	else if(curPos == 2) {
-		// Return to title screen
+		// Return to title screen*/
 		titleScreen();
 	}
 }

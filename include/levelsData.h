@@ -13,6 +13,10 @@ typedef struct {
 	u16 length;
 	u16 height;
 	u16 color;
+	s32 scrollX;
+	s32 scrollY;
+	s16 playerX;
+	s16 playerY;
 } Map;
 
 extern Map map0;

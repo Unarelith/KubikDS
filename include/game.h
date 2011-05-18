@@ -17,7 +17,7 @@ class Game {
 		~Game();
 		
 		// Init functions
-		void init(s16 x, s16 y);
+		void init(s16 px, s16 py);
 		void initLevels();
 		
 		// Update functions

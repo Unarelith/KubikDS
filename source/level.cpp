@@ -3,10 +3,9 @@
 
 int Level::nbLevels = 0;
 
-Level::Level(int id, Map* map, int bg) {
+Level::Level(int id, Map* map) {
 	s_id = id;
 	s_map = map;
-	s_bg = bg;
 	
 	if(s_map->map == 0) {
 		// Reset nbEnemies count
@@ -26,7 +25,9 @@ Level::~Level() {
 	free(s_map->map);
 }
 
-void Level::initializeBg() {
+void Level::initializeBg(int bg) {
+	s_bg = bg;
+	
 	u16* mapPtr = bgGetMapPtr(s_bg);
 	
 	dmaCopy(tilesTiles, bgGetGfxPtr(s_bg), tilesTilesLen);

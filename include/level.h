@@ -9,11 +9,11 @@
 class Level {
 	public:
 		// Construct & Destruct
-		Level(int id, Map* map, int bg);
+		Level(int id, Map* map);
 		~Level();
 		
 		// Init functions
-		void initializeBg();
+		void initializeBg(int bg);
 		
 		// Update functions
 		void scroll(s32 x, s32 y, bool absolute = false);
@@ -28,6 +28,9 @@ class Level {
 		s32 scrollX() const { return s_scrollX; }
 		s32 scrollY() const { return s_scrollY; }
 		Map* map() const { return s_map; }
+		
+		// Setting functions
+		void setBG(int bg);
 		
 		// Other functions
 		bool isKubeAt(s16 x, s16 y);

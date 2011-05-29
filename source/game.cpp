@@ -1,4 +1,5 @@
 #include "game.h"
+#include "levelEditor.h"
 
 int Game::frame = 0;
 bool Game::isGameOver = false;
@@ -6,7 +7,6 @@ bool Game::paused = false;
 bool Game::isFinished = false;
 Level* Game::currentLevel = 0;
 
-int i;
 Game::Game() {
 	// Initialize the background
 	s_bg = bgInit(0, BgType_Text8bpp, BgSize_T_512x512, 0, 1);
@@ -25,8 +25,8 @@ Game::~Game() {
 }
 
 void Game::initLevels() {
-	Level* level0 = new Level(0, &map0, s_bg);
-	Level* level1 = new Level(1, &map1, s_bg);
+	Level* level0 = new Level(0, &map0);
+	Level* level1 = new Level(1, &map1);
 	
 	s_levels[0] = level0;
 	s_levels[1] = level1;
@@ -40,7 +40,7 @@ void Game::init(s16 px, s16 py) {
 	currentLevel->resetScrolling();
 	
 	// Init currentLevel
-	currentLevel->initializeBg();
+	currentLevel->initializeBg(s_bg);
 	
 	// Init enemies table
 	s_enemies = currentLevel->map()->enemies;
@@ -83,15 +83,11 @@ void Game::titleScreen() {
 		
 		consoleClear();
 		printf("\x1b[1;12HKubikDS");
-			printf("\x1b[8;12HPlay");
-			printf("\x1b[11;12HCredits");
+			printf("\x1b[7;12HPlay");
+			printf("\x1b[10;12HLevel Editor");
+			printf("\x1b[13;12HCredits");
 		
-		if(curPos == 1) {
-			printf("\x1b[8;10H>");
-		}
-		else if (curPos == 2) {
-			printf("\x1b[11;10H>");
-		}
+		printf("\x1b[%i;10H>", 4 + curPos*3);
 		
 		if(keysDown() & KEY_DOWN) {
 			curPos++;
@@ -101,9 +97,9 @@ void Game::titleScreen() {
 		}
 		
 		if(curPos < 1) {
-			curPos = 2;
+			curPos = 3;
 		}
-		else if(curPos > 2){
+		else if(curPos > 3){
 			curPos = 1;
 		}
 		
@@ -120,6 +116,14 @@ void Game::titleScreen() {
 		levelsMenu();
 	}
 	else if(curPos == 2) {
+		oamClearSprite(&oamMain, s_player->i());
+		for(i = 0 ; i < Enemy::nbEnemies ; i++) {
+			oamClearSprite(&oamMain, s_enemies[i]->i());
+		}
+		LevelEditor* levelEditor = new LevelEditor(s_levels, s_bg);
+		delete levelEditor;
+	}
+	else if(curPos == 3) {
 		drawCredits();
 	}
 }

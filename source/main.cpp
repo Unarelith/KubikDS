@@ -9,6 +9,8 @@
 
 #include "efs_lib.h"
 
+int i;
+
 int main(void) {
 	defaultExceptionHandler();
 	

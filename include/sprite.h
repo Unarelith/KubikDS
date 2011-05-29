@@ -6,7 +6,7 @@
 class Sprite {
     public:
 		// Construct & Destruct
-        Sprite(int i, SpriteSize size, SpriteColorFormat format, s16 x, s16 y);
+        Sprite(int i, SpriteSize size, SpriteColorFormat format, s16 x, s16 y, OamState* oam = &oamMain);
 		~Sprite();
 		
 		// Update functions
@@ -16,6 +16,7 @@ class Sprite {
         u16* gfx() const { return s_gfx; } // Get sprite gfx pointer
         s16 x() const { return s_x; } // Get sprite x coordinate
         s16 y() const { return s_y; } // Get sprite y coordinate
+        int i() const { return s_i; } // Get sprite ID
         
         // Setting functions
         void setPosition(s16 x, s16 y) { s_x = x; s_y = y; }
@@ -30,6 +31,8 @@ class Sprite {
 		// Sprite coordinates
         s16 s_x;
         s16 s_y;
+		
+		OamState* s_oam;
 };
 
 #endif // SPRITE_H

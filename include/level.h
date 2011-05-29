@@ -13,7 +13,7 @@ class Level {
 		~Level();
 		
 		// Init functions
-		void initializeBg(int bg);
+		void initializeBg(int bg, bool main = true);
 		
 		// Update functions
 		void scroll(s32 x, s32 y, bool absolute = false);
@@ -30,7 +30,7 @@ class Level {
 		Map* map() const { return s_map; }
 		
 		// Setting functions
-		void setBG(int bg);
+		void setKube(s16 x, s16 y, u16 tile);
 		
 		// Other functions
 		bool isKubeAt(s16 x, s16 y);

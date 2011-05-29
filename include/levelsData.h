@@ -4,7 +4,7 @@
 #include "main.h"
 #include "enemy.h"
 
-#define MAX_SIZE 100
+#define MAX_SIZE 1000
 
 typedef struct {
 	int id;

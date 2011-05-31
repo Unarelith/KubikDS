@@ -31,32 +31,33 @@ void Level::initializeBg(int bg, bool main) {
 	u16* mapPtr = bgGetMapPtr(bg);
 	
 	dmaCopy(tilesTiles, bgGetGfxPtr(bg), tilesTilesLen);
+	
 	if(main) {
 		dmaCopy(tilesPal, BG_PALETTE, tilesPalLen);
 	} else {
 		dmaCopy(tilesPal, BG_PALETTE_SUB, tilesPalLen);
+		
+		// Took from console.c to resolve some palette issues
+		BG_PALETTE_SUB[1 * 16 - 1] = RGB15(0,0,0); //30 normal black
+		BG_PALETTE_SUB[2 * 16 - 1] = RGB15(15,0,0); //31 normal red
+		BG_PALETTE_SUB[3 * 16 - 1] = RGB15(0,15,0); //32 normal green
+		BG_PALETTE_SUB[4 * 16 - 1] = RGB15(15,15,0); //33 normal yellow
+
+		BG_PALETTE_SUB[5 * 16 - 1] = RGB15(0,0,15); //34 normal blue
+		BG_PALETTE_SUB[6 * 16 - 1] = RGB15(15,0,15); //35 normal magenta
+		BG_PALETTE_SUB[7 * 16 - 1] = RGB15(0,15,15); //36 normal cyan
+		BG_PALETTE_SUB[8 * 16 - 1] = RGB15(24,24,24); //37 normal white
+
+		BG_PALETTE_SUB[9  * 16 - 1] = RGB15(15,15,15); //40 bright black
+		BG_PALETTE_SUB[10 * 16 - 1] = RGB15(31,0,0); //41 bright red
+		BG_PALETTE_SUB[11 * 16 - 1] = RGB15(0,31,0); //42 bright green
+		BG_PALETTE_SUB[12 * 16 - 1] = RGB15(31,31,0);	//43 bright yellow
+		
+		BG_PALETTE_SUB[13 * 16 - 1] = RGB15(0,0,31); //44 bright blue
+		BG_PALETTE_SUB[14 * 16 - 1] = RGB15(31,0,31);	//45 bright magenta
+		BG_PALETTE_SUB[15 * 16 - 1] = RGB15(0,31,31);	//46 bright cyan
+		BG_PALETTE_SUB[16 * 16 - 1] = RGB15(31,31,31); //47 & 39 bright white
 	}
-	
-	/*// Took from console.c to resolve some palette issues
-	BG_PALETTE_SUB[1 * 16 - 1] = RGB15(0,0,0); //30 normal black
-	BG_PALETTE_SUB[2 * 16 - 1] = RGB15(15,0,0); //31 normal red
-	BG_PALETTE_SUB[3 * 16 - 1] = RGB15(0,15,0); //32 normal green
-	BG_PALETTE_SUB[4 * 16 - 1] = RGB15(15,15,0); //33 normal yellow
-
-	BG_PALETTE_SUB[5 * 16 - 1] = RGB15(0,0,15); //34 normal blue
-	BG_PALETTE_SUB[6 * 16 - 1] = RGB15(15,0,15); //35 normal magenta
-	BG_PALETTE_SUB[7 * 16 - 1] = RGB15(0,15,15); //36 normal cyan
-	BG_PALETTE_SUB[8 * 16 - 1] = RGB15(24,24,24); //37 normal white
-
-	BG_PALETTE_SUB[9 * 16 - 1 ] = RGB15(15,15,15); //40 bright black
-	BG_PALETTE_SUB[10 * 16 - 1] = RGB15(31,0,0); //41 bright red
-	BG_PALETTE_SUB[11 * 16 - 1] = RGB15(0,31,0); //42 bright green
-	BG_PALETTE_SUB[12 * 16 - 1] = RGB15(31,31,0);	//43 bright yellow
-	
-	BG_PALETTE_SUB[13 * 16 - 1] = RGB15(0,0,31); //44 bright blue
-	BG_PALETTE_SUB[14 * 16 - 1] = RGB15(31,0,31);	//45 bright magenta
-	BG_PALETTE_SUB[15 * 16 - 1] = RGB15(0,31,31);	//46 bright cyan
-	BG_PALETTE_SUB[16 * 16 - 1] = RGB15(31,31,31); //47 & 39 bright white*/
 	
 	int i, j;
 	for(j = 0 ; j < 32 ; j++) {

@@ -17,15 +17,19 @@ LevelEditor::LevelEditor(Level** levels, int bg) {
 	// Set up top background
 	dmaCopy(tilesTiles, bgGetGfxPtr(s_bg), tilesTilesLen);
 	dmaCopy(tilesPal, BG_PALETTE, tilesPalLen);
-	dmaCopy(tilesMap, bgGetMapPtr(s_bg), tilesMapLen);
+	
+	unsigned short s;
+	for(s = 0 ; s < TILES_NB ; s++) {
+		tilesMap[s] = s;
+	}
+	
+	dmaCopyHalfWords(3, tilesMap, bgGetMapPtr(s_bg), tilesMapLen);
 	
 	// Reset level scrolling
 	s_level->resetScrolling();
 	
 	// Init currentLevel
 	s_level->initializeBg(s_bgSub, false);
-	
-	WAIT_FOR_START("test");
 	
 	// Init cursor
 	s_cursor = new Cursor;

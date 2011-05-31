@@ -5,7 +5,9 @@
 #include "level.h"
 #include "cursor.h"
 
-#include "tiles.h"
+#define tilesMapLen 8
+extern unsigned short tilesMap[4];
+
 #include "titleScreen.h"
 
 class LevelEditor {

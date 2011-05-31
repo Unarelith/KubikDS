@@ -18,11 +18,13 @@ LevelEditor::LevelEditor(Level** levels, int bg) {
 	dmaCopy(tilesTiles, bgGetGfxPtr(s_bg), tilesTilesLen);
 	dmaCopy(tilesPal, BG_PALETTE, tilesPalLen);
 	
-	unsigned short s;
+	// Fill tiles map
+	u16 tilesMap[4], s;
 	for(s = 0 ; s < TILES_NB ; s++) {
 		tilesMap[s] = s;
 	}
 	
+	// Copy tiles map into bg map
 	dmaCopyHalfWords(3, tilesMap, bgGetMapPtr(s_bg), tilesMapLen);
 	
 	// Reset level scrolling

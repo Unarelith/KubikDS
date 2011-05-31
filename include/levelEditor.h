@@ -6,7 +6,6 @@
 #include "cursor.h"
 
 #define tilesMapLen 8
-extern unsigned short tilesMap[4];
 
 #include "titleScreen.h"
 

@@ -28,7 +28,7 @@ int main(void) {
 	
 	// Initialize the console
 	PrintConsole bottomScreen;
-	consoleInit(&bottomScreen, 3, BgType_Text4bpp, BgSize_T_256x256, 31, 0, false, true);
+	consoleInit(&bottomScreen, 3, BgType_Text4bpp, BgSize_T_256x256, 16, 0, false, true);
 	
 	printf("EFS loading...");
 	

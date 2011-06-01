@@ -11,6 +11,7 @@ class Cursor : public Sprite {
 		// Construct & Destruct
 		Cursor();
 		~Cursor();
+		u16 tile() const { return (((s_x / 8) + 1) * ((s_y / 8) + 1)) - 1; }
 		
 		// Update functions
 		void move();

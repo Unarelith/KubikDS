@@ -1,5 +1,7 @@
 #include "levelEditor.h"
 
+unsigned short tilesMap[TILES_NB];
+
 LevelEditor::LevelEditor(Level** levels, int bg) {
 	s_bg = bg;
 	
@@ -7,7 +9,7 @@ LevelEditor::LevelEditor(Level** levels, int bg) {
 	s_level = menu();
 	
 	// Initialize the sub background
-	s_bgSub = bgInitSub(0, BgType_Text8bpp, BgSize_T_512x512, 0, 1);
+	s_bgSub = bgInitSub(0, BgType_Text8bpp, BgSize_T_512x512, 19, 3);
 	
 	// Reset top background
 	dmaCopy(0, bgGetGfxPtr(s_bg), titleScreenTilesLen);
@@ -19,7 +21,7 @@ LevelEditor::LevelEditor(Level** levels, int bg) {
 	dmaCopy(tilesPal, BG_PALETTE, tilesPalLen);
 	
 	// Fill tiles map
-	u16 tilesMap[4], s;
+	unsigned short s;
 	for(s = 0 ; s < TILES_NB ; s++) {
 		tilesMap[s] = s;
 	}
@@ -100,14 +102,70 @@ Level* LevelEditor::menu() {
 
 void LevelEditor::draw() {
 	s_cursor->draw();
+	printf("\x1b[0;0HTile: %i", s_cursor->tile());
 }
 
 void LevelEditor::commands() {
 	if(keysDown() & KEY_START) {
-		//pause(); // Display pause menu
+		pause(); // Display pause menu
 	}
 	
 	s_cursor->move();
+}
+
+
+void LevelEditor::pause() {
+	bool paused = true;
+	
+	int curPos = 1;
+	
+	while(paused) {
+		swiWaitForVBlank();
+		
+		scanKeys();
+		
+		consoleClear();
+		
+		printf("\x1b[1;14HPause");
+			printf("\x1b[8;12HContinue");
+			//printf("\x1b[11;12HMain menu");
+		
+		printf("\x1b[23;7HPress A to continue");
+		
+		if(curPos == 1) {
+			printf("\x1b[8;10H>");
+		}
+		/*else if (curPos == 2) {
+			printf("\x1b[11;10H>");
+		}
+		
+		if(keysDown() & KEY_DOWN) {
+			curPos++;
+		}
+		else if(keysDown() & KEY_UP) {
+			curPos--;
+		}
+		
+		if(curPos < 1) {
+			curPos = 2;
+		}
+		else if(curPos > 2){
+			curPos = 1;
+		}*/
+		
+		if(keysDown() & KEY_A) {
+			break;
+		}
+		
+		bgUpdate();
+		oamUpdate(&oamMain);
+	}
+	
+	consoleClear();
+	
+	if(curPos == 1) {
+		paused = false;
+	}
 }
 
 void LevelEditor::update() {

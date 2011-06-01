@@ -4,8 +4,25 @@
 bool Player::a = false;
 int Player::frame = 0;
 
+u16 u;
+u16 playerData[8 * 8] = {
+	0,0,1,1,1,1,0,0,
+	0,1,1,1,1,1,1,0,
+	1,1,0,1,1,0,1,1,
+	1,1,1,1,1,1,1,1,
+	1,1,0,1,1,0,1,1,
+	1,1,1,0,0,1,1,1,
+	0,1,1,1,1,1,1,0,
+	0,0,1,1,1,1,0,0
+};
+
 Player::Player(s16 x, s16 y) : Sprite(0, SpriteSize_8x8, SpriteColorFormat_Bmp, x, y) {
-    dmaFillHalfWords(ARGB16(1,31,31,31), s_gfx, 8*8*2); // Copy player data into sprite gfx
+	for(u = 0 ; u < 8 * 8 ; u++) {
+		if(playerData[u]) {
+			s_gfx[u] = ARGB16(1,31,31,31);
+		}
+	}
+    //dmaFillHalfWords(ARGB16(1,31,31,31), s_gfx, 8*8*2); // Copy player data into sprite gfx
 	
 	// Initialize other members
 	s_vx = 0;
@@ -94,13 +111,21 @@ void Player::update() {
 			a = true;
 		}
 		
-		dmaFillHalfWords(ARGB16(1,rand()%32,rand()%32,rand()%32), s_gfx, 8*8*2);
+		for(u = 0 ; u < 8 * 8 ; u++) {
+			if(playerData[u]) {
+				s_gfx[u] = ARGB16(1,rand()%32,rand()%32,rand()%32);
+			}
+		}
 		
 		if(Game::frame > frame + 120) {
 			
 			a = false;
 			
-			dmaFillHalfWords(ARGB16(1,31,31,31), s_gfx, 8*8*2);
+			for(u = 0 ; u < 8 * 8 ; u++) {
+				if(playerData[u]) {
+					s_gfx[u] = ARGB16(1,31,31,31);
+				}
+			}
 			
 			s_hit = false;
 		}
@@ -110,7 +135,13 @@ void Player::update() {
 	if(s_lifes == 0) {
 		s_lifes = 3;
 		a = false;
-		dmaFillHalfWords(ARGB16(1,31,31,31), s_gfx, 8*8*2);
+		
+		for(u = 0 ; u < 8 * 8 ; u++) {
+			if(playerData[u]) {
+				s_gfx[u] = ARGB16(1,31,31,31);
+			}
+		}
+		
 		s_hit = false;
 		Game::gameOver();
 	}
@@ -118,7 +149,13 @@ void Player::update() {
 	// Test finish
 	if(Game::currentLevel->isFinishAt(s_x + 4, s_y + 4)) {
 		a = false;
-		dmaFillHalfWords(ARGB16(1,31,31,31), s_gfx, 8*8*2);
+		
+		for(u = 0 ; u < 8 * 8 ; u++) {
+			if(playerData[u]) {
+				s_gfx[u] = ARGB16(1,31,31,31);
+			}
+		}
+		
 		s_hit = false;
 		Game::finish();
 	}

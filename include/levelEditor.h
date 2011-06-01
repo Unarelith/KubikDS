@@ -21,6 +21,7 @@ class LevelEditor {
 		
 		// Interface management
 		Level* menu();
+		void pause();
 		void commands();
 	
 	private:

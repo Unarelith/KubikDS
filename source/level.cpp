@@ -57,6 +57,8 @@ void Level::initializeBg(int bg, bool main) {
 		BG_PALETTE_SUB[14 * 16 - 1] = RGB15(31,0,31);	//45 bright magenta
 		BG_PALETTE_SUB[15 * 16 - 1] = RGB15(0,31,31);	//46 bright cyan
 		BG_PALETTE_SUB[16 * 16 - 1] = RGB15(31,31,31); //47 & 39 bright white
+		
+		BG_PALETTE_SUB[0] = RGB15(0,0,0);
 	}
 	
 	int i, j;

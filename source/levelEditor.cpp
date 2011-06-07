@@ -103,6 +103,7 @@ Level* LevelEditor::menu() {
 void LevelEditor::draw() {
 	s_cursor->draw();
 	printf("\x1b[0;0HTile: %i", s_cursor->tile());
+	printf("\x1b[1;0H%i %i %i", s_level->scrollX(), s_level->scrollY(), s_level->map()->height);
 }
 
 void LevelEditor::commands() {
@@ -111,6 +112,19 @@ void LevelEditor::commands() {
 	}
 	
 	s_cursor->move();
+	
+	if((keysDown() & KEY_X) && (s_level->scrollY() > 0)) { // Up
+		s_level->scroll(0,-8);
+	}
+	if((keysDown() & KEY_B) && ((s_level->scrollY() / 8 + 24) < s_level->map()->height)) { // Down
+		s_level->scroll(0,8);
+	}
+	if((keysDown() & KEY_Y) && (s_level->scrollX() > 0)) { // Left
+		s_level->scroll(-8,0);
+	}
+	if((keysDown() & KEY_A) && ((s_level->scrollX() / 8 + 32) < s_level->map()->length)) { // Right
+		s_level->scroll(8,0);
+	}
 }
 
 

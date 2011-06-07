@@ -131,6 +131,8 @@ void LevelEditor::commands() {
 void LevelEditor::pause() {
 	bool paused = true;
 	
+	bgHide(s_bgSub);
+	
 	int curPos = 1;
 	
 	while(paused) {
@@ -177,7 +179,10 @@ void LevelEditor::pause() {
 	
 	consoleClear();
 	
+	bgShow(s_bgSub);
+	
 	if(curPos == 1) {
+		scanKeys();
 		paused = false;
 	}
 }

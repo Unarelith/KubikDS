@@ -28,6 +28,7 @@ class Game {
 		
 		// Game interface functions
 		void titleScreen(); // Draw title screen
+		void titleScreen2();
 		void drawCredits(); // Draw credits
 		void levelsMenu(); // Display levels menu
 		void displayHUD(); // Display HUD ( Head Up Display )
@@ -48,6 +49,7 @@ class Game {
 		static bool paused; // Is the game paused
 		static bool isFinished; // Is the game finished
 		static Level* currentLevel; // Pointer to the current level
+		static touchPosition touch;
 	
 	private:
 		int s_bg; // BG id returned by bgInit()

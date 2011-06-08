@@ -28,6 +28,13 @@ Cursor::Cursor() : Sprite(127, SpriteSize_8x8, SpriteColorFormat_Bmp, 0, 0) {
 }
 
 Cursor::~Cursor() {
+	oamClearSprite(s_oam, s_i);
+	u16 u;
+	for(u = 0 ; u < 8 * 8 ; u++) {
+		s_gfx[u] = 0;
+	}
+	oamFreeGfx(s_oam, s_gfx);
+	oamUpdate(s_oam);
 }
 
 void Cursor::move() {

@@ -1,4 +1,5 @@
 #include "levelEditor.h"
+#include "game.h"
 
 unsigned short tilesMap[TILES_NB];
 
@@ -144,15 +145,19 @@ void LevelEditor::pause() {
 		
 		printf("\x1b[1;14HPause");
 			printf("\x1b[8;12HContinue");
-			//printf("\x1b[11;12HMain menu");
+			printf("\x1b[11;12HHelp");
+			printf("\x1b[14;12HMain menu");
 		
 		printf("\x1b[23;7HPress A to continue");
 		
 		if(curPos == 1) {
 			printf("\x1b[8;10H>");
 		}
-		/*else if (curPos == 2) {
+		else if(curPos == 2) {
 			printf("\x1b[11;10H>");
+		}
+		else if(curPos == 3) {
+			printf("\x1b[14;10H>");
 		}
 		
 		if(keysDown() & KEY_DOWN) {
@@ -163,11 +168,11 @@ void LevelEditor::pause() {
 		}
 		
 		if(curPos < 1) {
-			curPos = 2;
+			curPos = 3;
 		}
 		else if(curPos > 2){
-			curPos = 1;
-		}*/
+			curPos = 3;
+		}
 		
 		if(keysDown() & KEY_A) {
 			break;
@@ -179,12 +184,46 @@ void LevelEditor::pause() {
 	
 	consoleClear();
 	
-	bgShow(s_bgSub);
-	
 	if(curPos == 1) {
 		scanKeys();
 		paused = false;
 	}
+	else if(curPos == 2) {
+		scanKeys();
+		paused = false;
+		help();
+	}
+	else if(curPos == 3) {
+		paused = false;
+		s_quit = true;
+	}
+	
+	bgShow(s_bgSub);
+}
+
+void LevelEditor::help() {
+	while(1) {
+		swiWaitForVBlank();
+		
+		scanKeys();
+		
+		printf("\x1b[1;14HHelp");
+			printf("\x1b[3;0H- Change current tile with the");
+			printf("\x1b[4;2Hcursor on top screen.");
+			printf("\x1b[6;0H- Scroll the map with ABXY keys.");
+			printf("\x1b[9;0H- To change a tile, just tap on");
+			printf("\x1b[10;2Hit.");
+		
+		printf("\x1b[20;6H> Back to pause menu");
+		
+		if(keysDown() & KEY_A) {
+			break;
+		}
+		
+		bgUpdate();
+	}
+	
+	pause();
 }
 
 void LevelEditor::update() {
@@ -194,6 +233,10 @@ void LevelEditor::update() {
 		
 		// Scan keys state
 		scanKeys();
+		
+		if(keysHeld() & KEY_TOUCH) {
+			touchRead(&Game::touch);
+		}
 		
 		// Commands ( keys interaction )
 		commands();
@@ -206,5 +249,15 @@ void LevelEditor::update() {
 		
 		bgUpdate(); // Update the background
 		oamUpdate(&oamMain); // Update the sprite system
+		
+		if(s_quit) {
+			break;
+		}
 	}
+	
+	s_quit = false;
+	
+	bgHide(s_bgSub);
+	
+	delete s_cursor;
 }

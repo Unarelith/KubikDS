@@ -7,7 +7,10 @@ bool Game::paused = false;
 bool Game::isFinished = false;
 Level* Game::currentLevel = 0;
 
+touchPosition Game::touch;
+
 Game::Game() {
+	
 	// Initialize the background
 	s_bg = bgInit(0, BgType_Text8bpp, BgSize_T_512x512, 0, 1);
 	
@@ -58,8 +61,6 @@ void Game::titleScreen() {
 	dmaCopy(titleScreenPal, BG_PALETTE, titleScreenPalLen);
 	dmaCopy(titleScreenMap, bgGetMapPtr(s_bg), titleScreenMapLen);
 	
-	int curPos = 1;
-	
 	while(1) {
 		swiWaitForVBlank();
 		
@@ -75,6 +76,12 @@ void Game::titleScreen() {
 		
 		bgUpdate();
 	}
+	
+	titleScreen2();
+}
+
+void Game::titleScreen2() {
+	int curPos = 1;
 	
 	while(1) {
 		swiWaitForVBlank();
@@ -122,6 +129,7 @@ void Game::titleScreen() {
 		}
 		LevelEditor* levelEditor = new LevelEditor(s_levels, s_bg);
 		delete levelEditor;
+		titleScreen();
 	}
 	else if(curPos == 3) {
 		drawCredits();

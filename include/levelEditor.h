@@ -22,6 +22,7 @@ class LevelEditor {
 		// Interface management
 		Level* menu();
 		void pause();
+		void help();
 		void commands();
 	
 	private:
@@ -30,6 +31,7 @@ class LevelEditor {
 		int s_bg;
 		int s_bgSub;
 		Cursor* s_cursor;
+		bool s_quit;
 };
 
 #endif // LEVELEDITOR_H

@@ -103,8 +103,9 @@ Level* LevelEditor::menu() {
 
 void LevelEditor::draw() {
 	s_cursor->draw();
+	//consoleClear();
 	printf("\x1b[0;0HTile: %i", s_cursor->tile());
-	printf("\x1b[1;0H%i %i %i", s_level->scrollX(), s_level->scrollY(), s_level->map()->height);
+	printf("\x1b[1;0H%i %i", Game::touch.px, Game::touch.py);
 }
 
 void LevelEditor::commands() {
@@ -125,6 +126,42 @@ void LevelEditor::commands() {
 	}
 	if((keysDown() & KEY_A) && ((s_level->scrollX() / 8 + 32) < s_level->map()->length)) { // Right
 		s_level->scroll(8,0);
+	}
+	
+	if(keysHeld() & KEY_TOUCH) {
+		touchRead(&Game::touch);
+		
+		s_level->setKube(Game::touch.px/8, Game::touch.py/8, s_cursor->tile());
+	}
+	
+	s_level->setKube(0,0,1);
+	
+	if(keysDown() & KEY_L) {
+		char filename[25];
+		sprintf(filename, "efs:/level%i/map", s_level->map()->id);
+		
+		FILE* file = fopen(filename, "w+");
+		int currentChar = 0;
+		int n = 0;
+		char c[2];
+		
+		if(file != NULL) {
+			
+			printf("\x1b[11;11HLoading...");
+			
+			while(currentChar != EOF) {
+				currentChar = fputc(bgGetMapPtr(s_bgSub)[n], file);
+				currentChar = fputc(',', file);
+				n++;
+			}
+			
+			printf("Ok!");
+			
+			fclose(file);
+		} else {
+			printf("Error while reading map %i\nFilename: %s", s_level->map()->id, filename);
+			while(1) { swiWaitForVBlank(); }
+		}
 	}
 }
 
@@ -233,10 +270,6 @@ void LevelEditor::update() {
 		
 		// Scan keys state
 		scanKeys();
-		
-		if(keysHeld() & KEY_TOUCH) {
-			touchRead(&Game::touch);
-		}
 		
 		// Commands ( keys interaction )
 		commands();

@@ -120,16 +120,23 @@ $(BUILD):
 	@make --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 	@./tools/efs $(TARGET).nds
 	@cp $(TARGET).nds $(TARGET)_r4.nds
+	@cp $(TARGET).nds $(TARGET)_mp.nds
 	@dlditool r4tf.dldi $(TARGET)_r4.nds
+	@dlditool mpcf.dldi $(TARGET)_mp.nds
 
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).nds $(TARGET)_r4.nds
+	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).nds $(TARGET)_r4.nds $(TARGET).img
 
 #---------------------------------------------------------------------------------
 run:
+	#@./tools/desmume-cli --cflash-image=$(TARGET).img $(TARGET)_mp.nds
 	@./tools/desmume-cli --gbaslot-rom=$(TARGET).nds $(TARGET).nds
+
+#---------------------------------------------------------------------------------
+fsimg:
+	@./img/makefsimg
 
 #---------------------------------------------------------------------------------
 else

@@ -11,6 +11,7 @@ extern int i;
 #include <stdio.h> // Printing text
 #include <malloc.h> // Memory allocation
 #include <math.h> // Math functions
+#include <string.h> // String functions
 
 #define WAIT_FOR_START(text) { printf(text); while(!(keysDown() & KEY_START)) { scanKeys(); swiWaitForVBlank(); } }
 

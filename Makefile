@@ -10,7 +10,7 @@ include $(DEVKITARM)/ds_rules
 
 export GAME_TITLE	:=	KubikDS
 export GAME_SUBTITLE1	:=	by Quent42340
-export GAME_SUBTITLE2	:=	Version: 0.71a
+export GAME_SUBTITLE2	:=	Version: 0.81a
 export NITRO_FILES	:=	$(CURDIR)/efsroot
 export OTHER_OPTIONS	:=	-g KBIK QT "KubikDS"
 

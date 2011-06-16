@@ -4,7 +4,7 @@
 int Enemy::nbEnemies = 0;
 
 Enemy::Enemy(int i, s16 x, s16 y, s32 vx, s32 vy) : Sprite(i, SpriteSize_8x8, SpriteColorFormat_Bmp, x, y) {
-	u16 enemyData[8 * 8] = {
+	/*u16 enemyData[8 * 8] = {
 		0,1,0,1,1,0,1,0,
 		1,1,1,1,1,1,1,1,
 		0,1,0,1,1,0,1,0,
@@ -20,9 +20,9 @@ Enemy::Enemy(int i, s16 x, s16 y, s32 vx, s32 vy) : Sprite(i, SpriteSize_8x8, Sp
 		if(enemyData[u]) {
 			s_gfx[u] = ARGB16(1,31,0,0);
 		}
-	}
+	}*/
 	
-    //dmaFillHalfWords(ARGB16(1,31,0,0), s_gfx, 8*8*2); // Copy player data into sprite gfx
+	dmaFillHalfWords(ARGB16(1,31,0,0), s_gfx, 8*8*2); // Copy player data into sprite gfx
 	
 	// Initialize initial members ( for reset )
 	s_ix = x;

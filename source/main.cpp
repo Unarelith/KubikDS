@@ -1,19 +1,27 @@
-/*---------------------------------------------------------------------------------
+/*
+ * =====================================================================================
+ *
+ *       Filename:  main.cpp
+ *
+ *    Description:  
+ *
+ *        Created:  15/02/2015 15:51:14
+ *       Compiler:  gcc
+ *
+ *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
+ *        Company:  
+ *
+ * =====================================================================================
+ */
+#include <nds.h>
 
-	KubikDS
-	- Quent42340
+#include "Game.hpp"
 
----------------------------------------------------------------------------------*/
-#include "main.h"
-#include "game.h"
-
-int i;
-
-int main(void) {
-	// Initialize game
-	Game* game = new Game;
+int main(int, char *[]) {
+	Game game;
 	
-	while(1);
+	while(1) swiWaitForVBlank();
 	
-	delete game;
+	return 0;
 }
+

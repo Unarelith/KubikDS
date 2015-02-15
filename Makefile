@@ -24,10 +24,10 @@ export OTHER_OPTIONS	:=	-g KBIK QT "KubikDS"
 #---------------------------------------------------------------------------------
 TARGET		:=	$(shell basename $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	source
-INCLUDES	:=	include
+SOURCES		:=	source external
+INCLUDES	:=	include external
 DATA		:=	data
-GRAPHICS	:=	gfx
+GRAPHICS	:=	graphics
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -39,8 +39,8 @@ CFLAGS	:=	-g -Wall -O2\
 		-ffast-math \
 		$(ARCH)
 
-CFLAGS	+=	$(INCLUDE) -DARM9
-CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions
+CFLAGS	+=	$(INCLUDE) -DARM9 -Wall -Wextra -Wfatal-errors
+CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=c++11
 
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=ds_arm9.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
@@ -127,16 +127,16 @@ $(BUILD):
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).nds $(TARGET)_r4.nds $(TARGET).img
+	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).nds $(TARGET)_r4.nds $(TARGET)_mp.nds $(TARGET).img
 
 #---------------------------------------------------------------------------------
 run:
-	#@./tools/desmume-cli --cflash-image=$(TARGET).img $(TARGET)_mp.nds
-	@./tools/desmume-cli --gbaslot-rom=$(TARGET).nds $(TARGET).nds
+	#@desmume-cli --cflash-image=$(TARGET).img $(TARGET)_mp.nds
+	@desmume-cli --gbaslot-rom=$(TARGET).nds $(TARGET).nds
 
 #---------------------------------------------------------------------------------
 fsimg:
-	@./img/makefsimg
+	@./tools/makefsimg
 
 #---------------------------------------------------------------------------------
 else
